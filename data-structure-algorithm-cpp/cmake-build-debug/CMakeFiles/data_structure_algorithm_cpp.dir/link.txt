@@ -1,3 +1,0 @@
-"D:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\data_structure_algorithm_cpp.dir/objects.a
-"D:\Program Files\mingw64\bin\ar.exe" cr CMakeFiles\data_structure_algorithm_cpp.dir/objects.a @CMakeFiles\data_structure_algorithm_cpp.dir\objects1.rsp
-"D:\Program Files\mingw64\bin\g++.exe" -g   -Wl,--whole-archive CMakeFiles\data_structure_algorithm_cpp.dir/objects.a -Wl,--no-whole-archive  -o data_structure_algorithm_cpp.exe -Wl,--out-implib,libdata_structure_algorithm_cpp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\data_structure_algorithm_cpp.dir\linklibs.rsp
