@@ -6,12 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(
         data_structure_algorithm_cpp main.cpp
 
-        Algorithm/Sort/SortTestHelper.h
-        Algorithm/Sort/InsertionSort.h
-        Algorithm/Sort/SelectionSort.h
-        Algorithm/Sort/BubbleSort.h
-        Algorithm/Sort/ShellSort.h
-        Algorithm/Sort/HeapSort.h
 
         DataStructure/Array/Array.h
 
