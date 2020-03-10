@@ -1,8 +1,24 @@
-//
-// Created by cheng on 2020/3/10.
-//
+#ifndef _LEETCODE_TREENODE_
+#define _LEETCODE_TREENODE_
 
-#ifndef DATA_STRUCTURE_ALGORITHM_CPP_TREENODE_H
-#define DATA_STRUCTURE_ALGORITHM_CPP_TREENODE_H
+#include <cstdlib>
 
-#endif //DATA_STRUCTURE_ALGORITHM_CPP_TREENODE_H
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+#endif
