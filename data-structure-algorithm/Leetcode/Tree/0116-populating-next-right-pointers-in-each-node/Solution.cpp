@@ -35,18 +35,28 @@ class Solution {
 public:
     Node* connect(Node* root) {
         if (nullptr == root)
-            return;
+            return nullptr;
 
-        Node *l = root->left, *r = root->right;
+        Node *l, *r;
+        Node *nextFirst = nullptr, *cur = nullptr;
+        for (Node *p = root; p && p->left;) {
+            if (!cur) {
+                cur = nextFirst = p->left;
+            } else {
+                cur->next = p->left;
+                cur = cur->next;
+            }
 
-        while (l != nullptr) {
-            l->next = r;
-            l = l->right;
-            r = r->left;
+            cur->next = p->right;
+
+            if (p->next) {
+                p = p->next;
+            } else {
+                p = nextFirst;
+                nextFirst = cur = nullptr;
+            }
         }
 
-        connect(root->left);
-        connect(root->right);
         return root;
     }
 
