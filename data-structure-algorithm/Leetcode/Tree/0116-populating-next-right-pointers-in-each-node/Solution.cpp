@@ -34,16 +34,10 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        connectSolution(root);
-        return root;
-    }
-
-private:
-    void connectSolution(Node *node) {
-        if (nullptr == node)
+        if (nullptr == root)
             return;
 
-        Node *l = node->left, *r = node->right;
+        Node *l = root->left, *r = root->right;
 
         while (l != nullptr) {
             l->next = r;
@@ -51,7 +45,9 @@ private:
             r = r->left;
         }
 
-        connectSolution(node->left);
-        connectSolution(node->right);
+        connect(root->left);
+        connect(root->right);
+        return root;
     }
+
 };
