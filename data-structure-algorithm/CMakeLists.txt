@@ -7,6 +7,4 @@ add_executable(
         data_structure_algorithm_cpp main.cpp
 
         DataStructure
-
-        Leetcode
 )
