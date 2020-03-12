@@ -5,3 +5,6 @@
 
 ### Array
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
+  
+### String
+  - 1071-greatest-common-divisor-of-strings
