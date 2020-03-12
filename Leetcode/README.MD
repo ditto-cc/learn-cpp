@@ -5,6 +5,7 @@
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
 ### Array
+  - 0807-max-increase-to-keep-city-skyline
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
   - 1365-how-many-numbers-are-smaller-than-the-current-number
 
