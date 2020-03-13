@@ -7,6 +7,7 @@
 ### Array
   - 0031-next-permutation
   - 0046-permutations
+  - 0047-permutations-II
   - 0169-majority-element
   - 0807-max-increase-to-keep-city-skyline
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
