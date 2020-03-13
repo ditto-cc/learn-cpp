@@ -16,6 +16,7 @@
   
 ### Backtracking
   - 0031-next-permutation
+  - 0039-combination-sum
   - 0046-permutations
   - 0047-permutations-II
   - 0077-combinations
