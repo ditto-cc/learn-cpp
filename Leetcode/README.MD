@@ -25,3 +25,7 @@
 ### DP
   - 0300-longest-increasing-subsequence
   - 0673-number-of-longest-increasing-subsequence
+
+### List
+  - 0025-Reverse-Nodes-in-k-Group
+  - 0092-Reverse-Linked-List-II
