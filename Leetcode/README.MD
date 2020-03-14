@@ -21,3 +21,6 @@
   - 0046-permutations
   - 0047-permutations-II
   - 0077-combinations
+
+### DP
+  - 0300-longest-increasing-subsequence
