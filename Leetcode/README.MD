@@ -5,6 +5,7 @@
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
 ### Array
+  - 0066-Plus-One
   - 0169-majority-element
   - 0695-max-Area-of-Island
   - 0807-max-increase-to-keep-city-skyline
