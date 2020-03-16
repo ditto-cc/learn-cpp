@@ -41,6 +41,7 @@ private:
                 l[i] = '0';
             } else {
                 l[i] = '1';
+                carry = 0;
                 break;
             }
         }
