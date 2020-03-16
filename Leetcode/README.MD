@@ -5,7 +5,6 @@
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
 ### Array
-  - 0066-Plus-One
   - 0169-majority-element
   - 0695-max-Area-of-Island
   - 0807-max-increase-to-keep-city-skyline
@@ -34,3 +33,6 @@
 ### List
   - 0025-Reverse-Nodes-in-k-Group
   - 0092-Reverse-Linked-List-II
+  
+### Math
+  - 0066-Plus-One
