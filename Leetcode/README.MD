@@ -36,3 +36,4 @@
   
 ### Math
   - 0066-Plus-One
+  - 0067-Add-Binary
