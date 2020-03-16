@@ -13,6 +13,7 @@
   - 1365-how-many-numbers-are-smaller-than-the-current-number
 
 ### String
+  - 0038-Count-and-Say
   - 1071-greatest-common-divisor-of-strings
   
 ### Backtracking
@@ -22,6 +23,8 @@
   - 0046-permutations
   - 0047-permutations-II
   - 0077-combinations
+  - 0078-Subsets
+  - 0090-Subsets-II
 
 ### DP
   - 0300-longest-increasing-subsequence
