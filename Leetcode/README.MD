@@ -41,3 +41,6 @@
 ### Search
   - 0074-Search-a-2D-Matrix
   - 1160-Find-Words-That-Can-Be-Formed-by-Characters
+  
+### Sort
+  - 0075-Sort-Colors
