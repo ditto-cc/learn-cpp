@@ -37,3 +37,7 @@
 ### Math
   - 0066-Plus-One
   - 0067-Add-Binary
+
+### Search
+  - 0074-Search-a-2D-Matrix
+  - 1160-Find-Words-That-Can-Be-Formed-by-Characters
