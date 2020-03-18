@@ -37,6 +37,7 @@
 ### Math
   - 0066-Plus-One
   - 0067-Add-Binary
+  - 0836-Rectangle-Overlap
 
 ### Search
   - 0074-Search-a-2D-Matrix
