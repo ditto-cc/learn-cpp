@@ -46,3 +46,4 @@
   
 ### Sort
   - 0075-Sort-Colors
+  - 0056-Merge-Intervals
