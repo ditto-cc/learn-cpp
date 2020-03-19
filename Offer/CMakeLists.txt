@@ -3,4 +3,7 @@ project(Offer)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Offer main.cpp String)
+add_executable(
+        Offer String Heap
+        main.cpp
+)
