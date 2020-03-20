@@ -48,3 +48,6 @@
 ### Sort
   - 0075-Sort-Colors
   - 0056-Merge-Intervals
+  
+### Heap
+  - 0347-Top-K-Frequent-Elements
