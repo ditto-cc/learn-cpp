@@ -14,6 +14,7 @@
   - 1365-how-many-numbers-are-smaller-than-the-current-number
 
 ### String
+  - 0006-ZigZag-Conversion
   - 0038-Count-and-Say
   - 0409-Longest-Palindrome
   - 1071-greatest-common-divisor-of-strings
