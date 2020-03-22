@@ -8,6 +8,7 @@
   - 0169-majority-element
   - 0695-max-Area-of-Island
   - 0807-max-increase-to-keep-city-skyline
+  - 0945-Minimum-Increment-to-Make-Array-Unique
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
   - 1266-minimum-time-visiting-all-points
   - 1365-how-many-numbers-are-smaller-than-the-current-number
