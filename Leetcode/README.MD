@@ -36,6 +36,7 @@
 ### List
   - 0025-Reverse-Nodes-in-k-Group
   - 0092-Reverse-Linked-List-II
+  - 0876-Middle-of-the-Linked-List
   
 ### Math
   - 0066-Plus-One
