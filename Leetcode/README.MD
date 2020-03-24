@@ -30,6 +30,7 @@
   - 0090-Subsets-II
 
 ### DP
+  - 0198-House-Robber
   - 0300-longest-increasing-subsequence
   - 0673-number-of-longest-increasing-subsequence
 
