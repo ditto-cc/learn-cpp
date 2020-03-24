@@ -4,6 +4,6 @@ project(Offer)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(
-        Offer String Heap
+        Offer String Heap DP
         main.cpp
 )
