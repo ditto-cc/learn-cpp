@@ -6,6 +6,7 @@
 
 ### Array
   - 0169-majority-element
+  - 0566-Reshape-the-Matrix
   - 0695-max-Area-of-Island
   - 0807-max-increase-to-keep-city-skyline
   - 0892-Surface-Area-of-3D-Shapes
