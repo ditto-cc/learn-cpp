@@ -5,7 +5,7 @@
 #include "../Array/Array.h"
 #include "Queue.h"
 
-template <typename T>
+template <class T>
 class LoopQueue : Queue<T> {
 private:
     T *data;

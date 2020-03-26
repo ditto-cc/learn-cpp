@@ -7,7 +7,7 @@
 
 using std::ostream;
 
-template<typename T>
+template<class T>
 class ArrayStack : public Stack<T> {
 private:
     Array<T> *arr;

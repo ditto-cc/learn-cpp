@@ -2,7 +2,7 @@
 #ifndef _QUEUE_H
 #define _QUEUE_H
 
-template <typename T>
+template <class T>
 class Queue {
 public:
     virtual void enqueue(const T &e) = 0;

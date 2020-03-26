@@ -7,7 +7,7 @@
 
 using std::ostream;
 
-template<typename T>
+template<class T>
 class ListQueue : public Queue<T> {
 
 private:
