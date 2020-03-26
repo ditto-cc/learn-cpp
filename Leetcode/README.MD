@@ -10,6 +10,7 @@
   - 0807-max-increase-to-keep-city-skyline
   - 0892-Surface-Area-of-3D-Shapes
   - 0945-Minimum-Increment-to-Make-Array-Unique
+  - 0999-Available-Captures-for-Rook
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
   - 1266-minimum-time-visiting-all-points
   - 1365-how-many-numbers-are-smaller-than-the-current-number
