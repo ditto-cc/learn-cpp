@@ -14,6 +14,7 @@
   - 0999-Available-Captures-for-Rook
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
   - 1266-minimum-time-visiting-all-points
+  - 1313-Decompress-Run-Length-Encoded-List
   - 1365-how-many-numbers-are-smaller-than-the-current-number
 
 ### String
