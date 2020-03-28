@@ -7,7 +7,7 @@
 
 using std::ostream;
 
-template<typename T>
+template<class T>
 class DLinkedList {
 public:
     class DListNode {
@@ -79,7 +79,7 @@ public:
 
 };
 
-template<typename T>
+template<class T>
 DLinkedList<T>::DLinkedList(T *arr, int n) {
     head = new DListNode();
     head->next = head;
@@ -88,7 +88,7 @@ DLinkedList<T>::DLinkedList(T *arr, int n) {
         append(arr[i]);
 }
 
-template<typename T>
+template<class T>
 DLinkedList<T>::DLinkedList(const DLinkedList<T> &list) {
     m_size = list.m_size;
     head = new DListNode();
@@ -100,7 +100,7 @@ DLinkedList<T>::DLinkedList(const DLinkedList<T> &list) {
     }
 }
 
-template<typename T>
+template<class T>
 DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &list) {
     if (&list == this)
         return *this;
@@ -117,7 +117,7 @@ DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &list) {
     }
 }
 
-template<typename T>
+template<class T>
 inline void DLinkedList<T>::__add(DLinkedList::DListNode *p, T e) {
     DListNode *node = new DListNode(e, p, p->next);
     p->next->prior = node;
@@ -125,7 +125,7 @@ inline void DLinkedList<T>::__add(DLinkedList::DListNode *p, T e) {
     m_size++;
 }
 
-template<typename T>
+template<class T>
 inline T DLinkedList<T>::__remove(DLinkedList::DListNode *p) {
     T ret = p->data;
     p->prior->next = p->next;
@@ -136,7 +136,7 @@ inline T DLinkedList<T>::__remove(DLinkedList::DListNode *p) {
     return ret;
 }
 
-template<typename T>
+template<class T>
 inline void DLinkedList<T>::add(int i, T e) {
     if (i < 0 || i > m_size)
         throw "Illegal Index";
@@ -146,17 +146,17 @@ inline void DLinkedList<T>::add(int i, T e) {
     __add(p, e);
 }
 
-template<typename T>
+template<class T>
 inline void DLinkedList<T>::append(T e) {
     __add(head->prior, e);
 }
 
-template<typename T>
+template<class T>
 inline void DLinkedList<T>::prepend(T e) {
     __add(head, e);
 }
 
-template<typename T>
+template<class T>
 inline T DLinkedList<T>::remove(int i) {
     if (i < 0 || i >= m_size)
         throw "Illegal Index";
@@ -165,21 +165,21 @@ inline T DLinkedList<T>::remove(int i) {
     return __remove(p);
 }
 
-template<typename T>
+template<class T>
 inline T DLinkedList<T>::popleft() {
     if (m_size == 0)
         throw "Empty List.";
     return __remove(head->next);
 }
 
-template<typename T>
+template<class T>
 inline T DLinkedList<T>::popright() {
     if (m_size == 0)
         throw "Empty List.";
     return __remove(head->prior);
 }
 
-template<typename T>
+template<class T>
 T DLinkedList<T>::get(int i) {
     if (i < 0 || i >= m_size)
         throw "Illegal Index";

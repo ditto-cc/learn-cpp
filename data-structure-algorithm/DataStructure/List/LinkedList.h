@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-template<typename T>
+template<class T>
 class LinkedList {
 public:
     class ListNode {
@@ -58,7 +58,7 @@ public:
 
     T get(int i) const;
 
-    template<typename T1>
+    template<class T1>
     friend std::ostream &operator<<(std::ostream &os, const LinkedList<T1> &list) {
         os << "[";
         int i = 0;
@@ -73,7 +73,7 @@ public:
     }
 };
 
-template<typename T>
+template<class T>
 inline void LinkedList<T>::__copy(const LinkedList<T> &list) {
     ListNode *p = head;
     ListNode *q = list.head->next;
@@ -84,20 +84,20 @@ inline void LinkedList<T>::__copy(const LinkedList<T> &list) {
     }
 }
 
-template<typename T>
+template<class T>
 inline LinkedList<T>::LinkedList(const LinkedList<T> &list) {
     head = new ListNode();
     __copy(list);
 }
 
-template<typename T>
+template<class T>
 inline LinkedList<T>::LinkedList(int arr[], int n) : size(0) {
     head = new ListNode();
     for (int i = n - 1; i >= 0; i--)
         prepend(arr[i]);
 }
 
-template<typename T>
+template<class T>
 inline LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &list) {
     if (&list == this)
         return *this;
@@ -108,7 +108,7 @@ inline LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &list) {
     return *this;
 }
 
-template<typename T>
+template<class T>
 inline void LinkedList<T>::add(int i, T e) {
     if (i < 0 || i > size)
         throw "Add Failed. Illegal Index.";
@@ -118,7 +118,7 @@ inline void LinkedList<T>::add(int i, T e) {
     size++;
 }
 
-template<typename T>
+template<class T>
 T LinkedList<T>::remove(int i) {
     if (i < 0 || i >= size)
         throw "Remove Failed. Illegal Index.";
@@ -135,7 +135,7 @@ T LinkedList<T>::remove(int i) {
     return ret;
 }
 
-template<typename T>
+template<class T>
 void LinkedList<T>::set(int i, T e) {
     if (i < 0 || i >= size)
         throw "Set Failed. Illegal Index.";
@@ -144,7 +144,7 @@ void LinkedList<T>::set(int i, T e) {
     p->next->data = e;
 }
 
-template<typename T>
+template<class T>
 T LinkedList<T>::get(int i) const {
     if (i < 0 || i >= size)
         throw "Get Failed. Illegal Index.";

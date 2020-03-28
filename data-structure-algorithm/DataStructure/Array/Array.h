@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-template<typename T>
+template<class T>
 class Array {
 private:
     T *data;
@@ -93,7 +93,7 @@ public:
 
 };
 
-template<typename T>
+template<class T>
 Array<T> &Array<T>::operator=(const Array &array) {
     if (this == &array)
         return *this;
@@ -109,7 +109,7 @@ Array<T> &Array<T>::operator=(const Array &array) {
     return *this;
 }
 
-template<typename T>
+template<class T>
 inline std::ostream &operator<<(std::ostream &os, const Array<T> &arr) {
     int capacity = arr.capacity();
     int size = arr.size();

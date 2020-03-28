@@ -7,7 +7,7 @@
 
 using std::ostream;
 
-template<typename T>
+template<class T>
 class ListStack : public Stack<T> {
 private:
     LinkedList<T> *list;

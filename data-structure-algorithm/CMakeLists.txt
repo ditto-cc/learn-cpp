@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(
         data_structure_algorithm_cpp main.cpp
 
-        DataStructure
+        DataStructure Algorithm
 )

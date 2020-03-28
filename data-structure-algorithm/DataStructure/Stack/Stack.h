@@ -2,7 +2,7 @@
 #ifndef _STACK_H
 #define _STACK_H
 
-template <typename T>
+template <class T>
 class Stack {
 
 public:
