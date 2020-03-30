@@ -8,25 +8,25 @@
 template <class T>
 class BST {
 public:
-    class BTNode {
+    class Node {
     public:
         T data;
-        BTNode *lChild, *rChild;
+        Node *lChild, *rChild;
 
-        BTNode(T e, BTNode *l = nullptr, BTNode *r = nullptr) : data(e), lChild(l), rChild(r) {}
-        ~BTNode() { delete lChild, rChild; }
+        Node(T e, Node *l = nullptr, Node *r = nullptr) : data(e), lChild(l), rChild(r) {}
+        ~Node() { delete lChild, rChild; }
     };
 private:
-    BTNode *m_root;
+    Node *m_root;
     int m_size;
 
-    void __preOrder(BTNode *root, void (*visit)(const T &e));
-    void __inOrder(BTNode *root, void (*visit)(const T &e));
-    void __postOrder(BTNode *root, void (*visit)(const T &e));
+    void __preOrder(Node *root, void (*visit)(const T &e));
+    void __inOrder(Node *root, void (*visit)(const T &e));
+    void __postOrder(Node *root, void (*visit)(const T &e));
 
-    BTNode *__add(BTNode *node, const T &e) {
+    Node *__add(Node *node, const T &e) {
         if (node == nullptr)
-            return new BTNode(e);
+            return new Node(e);
         if (node->data < e)
             node->rChild = __add(node->rChild, e);
         else if (node->data > e)
@@ -34,7 +34,7 @@ private:
         return node;
     }
 
-    BTNode *__getNode(BTNode *node, const T &e) {
+    Node *__getNode(Node *node, const T &e) {
         if (node == nullptr)
             return nullptr;
         if (node->data < e)
@@ -44,11 +44,11 @@ private:
         return node;
     }
 
-    BTNode *__removeMin(BTNode *node, BTNode *&minNode) {
+    Node *__removeMin(Node *node, Node *&minNode) {
         if (node == nullptr)
             return nullptr;
         if (node->lChild == nullptr) {
-            BTNode *ret = node->rChild;
+            Node *ret = node->rChild;
             node->rChild = nullptr;
             minNode = node;
             return ret;
@@ -57,16 +57,16 @@ private:
         return node;
     }
 
-    BTNode *__remove(BTNode *node, const T &e) {
+    Node *__remove(Node *node, const T &e) {
         if (!node) return nullptr;
 
-        BTNode *retNode = node;
+        Node *retNode = node;
         if (e < retNode->data)
             retNode->lChild = __remove(retNode->lChild, e);
         else if (e > retNode->rChild)
             retNode->rChild = __remove(retNode->rChild, e);
         else {
-            BTNode *delNode = retNode;
+            Node *delNode = retNode;
             if (!retNode->lChild) {
                 retNode = retNode->rChild;
                 delNode->rChild = nullptr;
@@ -74,7 +74,7 @@ private:
                 retNode = retNode->lChild;
                 delNode->lChild = nullptr;
             } else {
-                BTNode *successor;
+                Node *successor;
                 retNode->rChild = __removeMin(retNode->rChild, successor);
                 successor->lChild = retNode->lChild;
                 successor->rChild = retNode->rChild;
@@ -86,15 +86,15 @@ private:
         return retNode;
     }
 
-    BTNode *__copy(BTNode *s, BTNode *t) {
+    Node *__copy(Node *s, Node *t) {
         if (!s) return nullptr;
-        auto *node = new BTNode(s->data);
+        auto *node = new Node(s->data);
         node->lChild = __copy(s->lChild, t->lChild);
         node->rChild = __copy(s->rChild, t->rChild);
         return node;
     }
 
-    int __height(BTNode *node) {
+    int __height(Node *node) {
         if (!node) return 0;
         return 1 + std::max(__height(node->lChild), __height(node->rChild));
     }
@@ -122,13 +122,13 @@ public:
         if (tree.empty())
             return os << std::endl;
         int level, h = tree.height();
-        ListQueue<BTNode*> q;
+        ListQueue<Node*> q;
         q.enqueue(tree.m_root);
         while (!q.empty() && h > 0) {
             level = q.size();
             h --;
             for (; level > 0; level --) {
-                BTNode *front = q.dequeue();
+                Node *front = q.dequeue();
                 if (front == nullptr) {
                     os << "NULL ";
                     q.enqueue(nullptr);
@@ -145,8 +145,8 @@ public:
     }
 };
 
-template<typename T>
-void BST<T>::__preOrder(BTNode *root, void (*visit)(const T &e)) {
+template<class T>
+void BST<T>::__preOrder(Node *root, void (*visit)(const T &e)) {
     if (root == nullptr)
         return;
     visit(root->data);
@@ -154,8 +154,8 @@ void BST<T>::__preOrder(BTNode *root, void (*visit)(const T &e)) {
     __preOrder(root->rChild, visit);
 }
 
-template<typename T>
-void BST<T>::__inOrder(BTNode *root, void (*visit)(const T &)) {
+template<class T>
+void BST<T>::__inOrder(Node *root, void (*visit)(const T &)) {
     if (root == nullptr)
         return;
     __preOrder(root->lChild, visit);
@@ -163,8 +163,8 @@ void BST<T>::__inOrder(BTNode *root, void (*visit)(const T &)) {
     __preOrder(root->rChild, visit);
 }
 
-template<typename T>
-void BST<T>::__postOrder(BTNode *root, void (*visit)(const T &)) {
+template<class T>
+void BST<T>::__postOrder(Node *root, void (*visit)(const T &)) {
     if (root == nullptr)
         return;
     __preOrder(root->lChild, visit);
@@ -172,18 +172,18 @@ void BST<T>::__postOrder(BTNode *root, void (*visit)(const T &)) {
     visit(root->data);
 }
 
-template<typename T>
+template<class T>
 void BST<T>::remove(const T &e) {
     m_root = __remove(m_root, e);
 }
 
-template<typename T>
+template<class T>
 BST<T>::BST(const BST &tree) {
     m_root = __copy(tree.m_root, m_root);
     m_size = tree.m_size;
 }
 
-template<typename T>
+template<class T>
 BST<T> &BST<T>::operator=(const BST &tree) {
     if (&tree == this)
         return *this;
