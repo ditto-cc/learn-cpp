@@ -60,7 +60,8 @@
 ### Sort
   - 0075-Sort-Colors
   - 0056-Merge-Intervals
-  
+  - 0912-Sort-an-Array
+
 ### Heap
   - 0215-Kth-Largest-Element-in-an-Array
   - 0347-Top-K-Frequent-Elements
