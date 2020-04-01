@@ -7,6 +7,7 @@
 template <class Key, class Value>
 class AVL {
 private:
+
     class Node {
     public:
         Key key;
@@ -20,6 +21,7 @@ private:
                 lChild(l), rChild(r) {}
         ~Node() { delete lChild, rChild; }
     };
+
     Node *m_root;
     int m_size;
 
@@ -105,7 +107,20 @@ private:
             minNode = node;
             return ret;
         }
-        node->lChild = __removeMin(node->lChild);
+        node->lChild = __removeMin(node->lChild, minNode);
+        return rotate(node);
+    }
+
+    Node *__removeMax(Node *node, Node *maxNode) {
+        if (node == nullptr)
+            return nullptr;
+        if (node->rChild == nullptr) {
+            Node *ret = node->lChild;
+            node->lChild = nullptr;
+            maxNode = node;
+            return ret;
+        }
+        node->rChild = __removeMax(node->rChild, maxNode);
         return rotate(node);
     }
 
@@ -114,7 +129,7 @@ private:
         Node *retNode = node;
         if (key < retNode->key)
             retNode->lChild = __remove(retNode->lChild, key);
-        else if (key > retNode->rChild)
+        else if (key > retNode->key)
             retNode->rChild = __remove(retNode->rChild, key);
         else {
             Node *delNode = retNode;
@@ -172,7 +187,8 @@ public:
     }
 
     bool contains(const Key &key) { return __getNode(m_root, key) != nullptr; }
-    void remove(const Key &key);
+    Value get(const Key &key);
+    Value remove(const Key &key);
 
     void preOrder(void (*visit)(const Key &key, Value &value)) { __preOrder(visit); }
     void inOrder(void (*visit)(const Key &key, Value &value)) { __inOrder(visit); }
@@ -234,8 +250,18 @@ void AVL<Key, Value>::__postOrder(Node *root, void (*visit)(const Key &key, Valu
 }
 
 template<class Key, class Value>
-void AVL<Key, Value>::remove(const Key &key) {
+Value AVL<Key, Value>::remove(const Key &key) {
+    Node *node = __getNode(m_root, key);
+    if (!node) return NULL;
     m_root = __remove(m_root, key);
+    return node->value;
+}
+
+template<class Key, class Value>
+Value AVL<Key, Value>::get(const Key &key) {
+    Node *node = __getNode(m_root, key);
+    if (!node) return NULL;
+    return node->value;
 }
 
 template<class Key, class Value>
