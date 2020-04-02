@@ -7,6 +7,7 @@
 
 ### Array
   - 0169-majority-element
+  - 0289-Game-of-Life
   - 0566-Reshape-the-Matrix
   - 0695-max-Area-of-Island
   - 0807-max-increase-to-keep-city-skyline
