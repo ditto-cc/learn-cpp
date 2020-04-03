@@ -49,6 +49,8 @@
   - 0876-Middle-of-the-Linked-List
   
 ### Math
+  - 0050-Pow
+  - 0509-Fibonacci-Number
   - 0066-Plus-One
   - 0067-Add-Binary
   - 0089-Gray-Code
