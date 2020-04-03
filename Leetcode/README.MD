@@ -22,6 +22,7 @@
 
 ### String
   - 0006-ZigZag-Conversion
+  - 0008-String-to-Integer-(atoi)
   - 0038-Count-and-Say
   - 0409-Longest-Palindrome
   - 0820-Short-Encoding-of-Words
