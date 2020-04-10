@@ -1,22 +1,26 @@
 
 #ifndef _AVL_H
 #define _AVL_H
+
 #include <iostream>
+#include <functional>
 #include "../Queue/ListQueue.h"
 
-template <class Key, class Value>
+using std::range_error;
+
+template <class K, class V>
 class AVL {
 private:
 
     class Node {
     public:
-        Key key;
-        Value value;
+        K key;
+        V value;
         int height;
         Node *lChild, *rChild;
 
-        Node(Key k, Value v, int height,
-                Node *l = nullptr, Node *r = nullptr):
+        Node(K k, V v, int height,
+             Node *l = nullptr, Node *r = nullptr):
                 key(k), value(v), height(height),
                 lChild(l), rChild(r) {}
         ~Node() { delete lChild, rChild; }
@@ -24,10 +28,11 @@ private:
 
     Node *m_root;
     int m_size;
+    typedef std::function<void(const K &key, V &value)> visitFunc;
 
-    void __preOrder(Node *root, void (*visit)(const Key &key, Value &value));
-    void __inOrder(Node *root, void (*visit)(const Key &key, Value &value));
-    void __postOrder(Node *root, void (*visit)(const Key &key, Value &value));
+    void __preOrder(Node *root, visitFunc);
+    void __inOrder(Node *root, visitFunc);
+    void __postOrder(Node *root, visitFunc);
 
     int getBalanceFactor(Node *node) {
         if (!node) return 0;
@@ -78,17 +83,21 @@ private:
         return retNode;
     }
 
-    Node *__add(Node *node, const Key &key, Value &value) {
-        if (node == nullptr)
+    Node *__add(Node *node, const K &key, V &value) {
+        if (node == nullptr) {
+            m_size++;
             return new Node(key, value, 1);
+        }
         if (node->key < key)
             node->rChild = __add(node->rChild, key, value);
         else if (node->key > key)
             node->lChild = __add(node->lChild, key, value);
+        else
+            node->value = value;
         return rotate(node);
     }
 
-    Node *__getNode(Node *node, const Key &key) {
+    Node *__getNode(Node *node, const K &key) {
         if (node == nullptr)
             return nullptr;
         if (node->key < key)
@@ -111,7 +120,7 @@ private:
         return rotate(node);
     }
 
-    Node *__removeMax(Node *node, Node *maxNode) {
+    Node *__removeMax(Node *node, Node *&maxNode) {
         if (node == nullptr)
             return nullptr;
         if (node->rChild == nullptr) {
@@ -124,7 +133,7 @@ private:
         return rotate(node);
     }
 
-    Node *__remove(Node *node, const Key &key) {
+    Node *__remove(Node *node, const K &key) {
         if (!node) return nullptr;
         Node *retNode = node;
         if (key < retNode->key)
@@ -154,7 +163,7 @@ private:
 
     Node *__copy(Node *s, Node *t) {
         if (!s) return nullptr;
-        auto *node = new Node(s->key);
+        auto *node = new Node(s->key, s->value, s->height);
         node->lChild = __copy(s->lChild, t->lChild);
         node->rChild = __copy(s->rChild, t->rChild);
         return node;
@@ -172,29 +181,20 @@ public:
     AVL(const AVL &tree);
     AVL &operator=(const AVL &tree);
 
-    int size() { return m_size; }
+    int size() const { return m_size; }
     bool empty() const { return m_size == 0; }
     int height() const { return height(m_root); }
 
-    void add(const Key &key, Value &value) {
-        Node *node = __getNode(m_root, key);
-        if (node) {
-            node->value = value;
-        } else {
-            m_root = __add(m_root, key, value);
-            m_size++;
-        }
-    }
+    void add(const K &key, V &value) { m_root = __add(m_root, key, value); }
 
-    bool contains(const Key &key) { return __getNode(m_root, key) != nullptr; }
-    Value get(const Key &key);
-    Value remove(const Key &key);
+    bool contains(const K &key) { return __getNode(m_root, key) != nullptr; }
+    V &get(const K &key);
+    V &remove(const K &key);
 
-    void preOrder(void (*visit)(const Key &key, Value &value)) { __preOrder(visit); }
-    void inOrder(void (*visit)(const Key &key, Value &value)) { __inOrder(visit); }
-    void postOrder(void (*visit)(const Key &key, Value &value)) { __postOrder(visit); }
+    void preOrder(visitFunc visit) { __preOrder(m_root, visit); }
+    void inOrder(visitFunc visit) { __inOrder(m_root, visit); }
+    void postOrder(visitFunc visit) { __postOrder(m_root, visit); }
 
-    template<class K, class V>
     friend std::ostream &operator<<(std::ostream &os, const AVL<K, V> &tree) {
         if (tree.empty())
             return os << "NULL" <<std::endl;
@@ -223,44 +223,44 @@ public:
 };
 
 template<class Key, class Value>
-void AVL<Key, Value>::__preOrder(Node *root, void (*visit)(const Key &key, Value &value)) {
+void AVL<Key, Value>::__preOrder(Node *root, visitFunc visit) {
     if (root == nullptr)
         return;
-    visit(root->key);
+    visit(root->key, root->value);
     __preOrder(root->lChild, visit);
     __preOrder(root->rChild, visit);
 }
 
 template<class Key, class Value>
-void AVL<Key, Value>::__inOrder(Node *root, void (*visit)(const Key &key, Value &value)) {
+void AVL<Key, Value>::__inOrder(Node *root, visitFunc visit) {
     if (root == nullptr)
         return;
-    __preOrder(root->lChild, visit);
-    visit(root->key);
-    __preOrder(root->rChild, visit);
+    __inOrder(root->lChild, visit);
+    visit(root->key, root->value);
+    __inOrder(root->rChild, visit);
 }
 
 template<class Key, class Value>
-void AVL<Key, Value>::__postOrder(Node *root, void (*visit)(const Key &key, Value &value)) {
+void AVL<Key, Value>::__postOrder(Node *root, visitFunc visit) {
     if (root == nullptr)
         return;
-    __preOrder(root->lChild, visit);
-    __preOrder(root->rChild, visit);
-    visit(root->key);
+    __postOrder(root->lChild, visit);
+    __postOrder(root->rChild, visit);
+    visit(root->key, root->value);
 }
 
 template<class Key, class Value>
-Value AVL<Key, Value>::remove(const Key &key) {
+Value &AVL<Key, Value>::remove(const Key &key) {
     Node *node = __getNode(m_root, key);
-    if (!node) return NULL;
+    if (!node) throw range_error("Key Error");
     m_root = __remove(m_root, key);
     return node->value;
 }
 
 template<class Key, class Value>
-Value AVL<Key, Value>::get(const Key &key) {
+Value &AVL<Key, Value>::get(const Key &key) {
     Node *node = __getNode(m_root, key);
-    if (!node) return NULL;
+    if (!node) throw range_error("Key Error");
     return node->value;
 }
 

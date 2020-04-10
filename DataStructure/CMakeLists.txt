@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(
         DataStructure main.cpp
-        Array Graph List Queue Stack Tree
+        Array Graph List Queue Stack Tree Map Set Entity
 )
