@@ -6,6 +6,7 @@
 #include "Queue.h"
 
 using std::ostream;
+using std::out_of_range;
 
 template<class T>
 class ListQueue : public Queue<T> {
@@ -22,13 +23,13 @@ public:
 
     T dequeue() {
         if (empty())
-            throw "Empty Queue.";
+            throw out_of_range("Empty Queue.");
         return list->popleft();
     }
 
     T getFront() const {
         if (empty())
-            throw "Empty Queue.";
+            throw out_of_range("Empty Queue.");
         return list->get(0);
     }
 

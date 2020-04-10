@@ -6,6 +6,7 @@
 #include "LinkedList.h"
 
 using std::ostream;
+using std::out_of_range;
 
 template<class T>
 class DLinkedList {
@@ -17,7 +18,7 @@ public:
 
         DListNode() : prior(nullptr), next(nullptr) {}
 
-        DListNode(T e, DListNode *p = nullptr, DListNode *n = nullptr) : data(e), prior(p), next(n) {}
+        explicit DListNode(T e, DListNode *p = nullptr, DListNode *n = nullptr) : data(e), prior(p), next(n) {}
 
         ~DListNode() { delete next; }
     };
@@ -44,7 +45,7 @@ public:
 
     DLinkedList(T *arr, int n);
 
-    DLinkedList(const DLinkedList<T> &arr);
+    DLinkedList(const DLinkedList<T> &list);
 
     DLinkedList<T> &operator=(const DLinkedList<T> &list);
 
@@ -82,6 +83,7 @@ public:
 template<class T>
 DLinkedList<T>::DLinkedList(T *arr, int n) {
     head = new DListNode();
+    m_size = n;
     head->next = head;
     head->prior = head;
     for (int i = 0; i < n; i++)
@@ -119,7 +121,7 @@ DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &list) {
 
 template<class T>
 inline void DLinkedList<T>::__add(DLinkedList::DListNode *p, T e) {
-    DListNode *node = new DListNode(e, p, p->next);
+    auto *node = new DListNode(e, p, p->next);
     p->next->prior = node;
     p->next = node;
     m_size++;
@@ -139,7 +141,7 @@ inline T DLinkedList<T>::__remove(DLinkedList::DListNode *p) {
 template<class T>
 inline void DLinkedList<T>::add(int i, T e) {
     if (i < 0 || i > m_size)
-        throw "Illegal Index";
+        throw out_of_range("Illegal Index");
 
     DListNode *p = head;
     for (int j = 0; j < i; j++, p = p->next);
@@ -159,7 +161,7 @@ inline void DLinkedList<T>::prepend(T e) {
 template<class T>
 inline T DLinkedList<T>::remove(int i) {
     if (i < 0 || i >= m_size)
-        throw "Illegal Index";
+        throw out_of_range("Illegal Index");
     DListNode *p = head->next;
     for (int j = 0; j < i; j++, p = p->next);
     return __remove(p);
@@ -168,21 +170,21 @@ inline T DLinkedList<T>::remove(int i) {
 template<class T>
 inline T DLinkedList<T>::popleft() {
     if (m_size == 0)
-        throw "Empty List.";
+        throw out_of_range("Empty List.");
     return __remove(head->next);
 }
 
 template<class T>
 inline T DLinkedList<T>::popright() {
     if (m_size == 0)
-        throw "Empty List.";
+        throw out_of_range("Empty List.");
     return __remove(head->prior);
 }
 
 template<class T>
 T DLinkedList<T>::get(int i) {
     if (i < 0 || i >= m_size)
-        throw "Illegal Index";
+        throw out_of_range("Illegal Index");
     DListNode *p = head;
     for (int j = 0; j < i; j++, p = p->next);
     return p->next->data;

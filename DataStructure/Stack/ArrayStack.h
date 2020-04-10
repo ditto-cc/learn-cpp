@@ -6,6 +6,8 @@
 #include "Stack.h"
 
 using std::ostream;
+using std::exception;
+using std::out_of_range;
 
 template<class T>
 class ArrayStack : public Stack<T> {
@@ -21,13 +23,13 @@ public:
 
     T pop() {
         if (empty())
-            throw "Empty Stack.";
+            throw out_of_range("Empty Stack.");
         return arr->remove(arr->size() - 1);
     }
 
     T top() const {
         if (empty())
-            throw "Empty Stack.";
+            throw out_of_range("Empty Stack.");
         return arr->get(arr->size() - 1);
     }
 

@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+using std::out_of_range;
+
 template<class T>
 class LinkedList {
 public:
@@ -14,7 +16,7 @@ public:
 
         ListNode() : next(nullptr) {}
 
-        ListNode(const T &e, ListNode *next = nullptr) : data(e), next(next) {}
+        explicit ListNode(const T &e, ListNode *next = nullptr) : data(e), next(next) {}
 
         ~ListNode() { delete next; }
     };
@@ -87,6 +89,7 @@ inline void LinkedList<T>::__copy(const LinkedList<T> &list) {
 template<class T>
 inline LinkedList<T>::LinkedList(const LinkedList<T> &list) {
     head = new ListNode();
+    size = list.size;
     __copy(list);
 }
 
@@ -111,7 +114,7 @@ inline LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &list) {
 template<class T>
 inline void LinkedList<T>::add(int i, T e) {
     if (i < 0 || i > size)
-        throw "Add Failed. Illegal Index.";
+        throw out_of_range("Add Failed. Illegal Index.");
 
     ListNode *p = __getPrior(i);
     p->next = new ListNode(e, p->next);
@@ -121,7 +124,7 @@ inline void LinkedList<T>::add(int i, T e) {
 template<class T>
 T LinkedList<T>::remove(int i) {
     if (i < 0 || i >= size)
-        throw "Remove Failed. Illegal Index.";
+        throw out_of_range("Remove Failed. Illegal Index.");
 
     ListNode *p = __getPrior(i);
 
@@ -138,7 +141,7 @@ T LinkedList<T>::remove(int i) {
 template<class T>
 void LinkedList<T>::set(int i, T e) {
     if (i < 0 || i >= size)
-        throw "Set Failed. Illegal Index.";
+        throw out_of_range("Set Failed. Illegal Index.");
 
     ListNode *p = __getPrior(i);
     p->next->data = e;
@@ -147,7 +150,7 @@ void LinkedList<T>::set(int i, T e) {
 template<class T>
 T LinkedList<T>::get(int i) const {
     if (i < 0 || i >= size)
-        throw "Get Failed. Illegal Index.";
+        throw out_of_range("Get Failed. Illegal Index.");
 
     ListNode *p = __getPrior(i);
     return p->next->data;

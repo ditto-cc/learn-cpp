@@ -6,6 +6,7 @@
 #include "Stack.h"
 
 using std::ostream;
+using std::out_of_range;
 
 template<class T>
 class ListStack : public Stack<T> {
@@ -19,13 +20,13 @@ public:
 
     T pop() {
         if (empty())
-            throw "Empty List.";
+            throw out_of_range("Empty Stack.");
         return list->remove(0);
     }
 
     T top() const {
         if (empty())
-            throw "Empty List.";
+            throw out_of_range("Empty Stack.");
         return list->get(0);
     }
 

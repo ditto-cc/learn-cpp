@@ -160,7 +160,7 @@ private:
         return node;
     }
 
-    int height(Node *node) {
+    int height(Node *node) const {
         if (!node) return 0;
         return node->height;
     }
@@ -173,8 +173,8 @@ public:
     AVL &operator=(const AVL &tree);
 
     int size() { return m_size; }
-    bool empty() { return m_size == 0; }
-    int height() { return height(m_root); }
+    bool empty() const { return m_size == 0; }
+    int height() const { return height(m_root); }
 
     void add(const Key &key, Value &value) {
         Node *node = __getNode(m_root, key);
@@ -195,7 +195,7 @@ public:
     void postOrder(void (*visit)(const Key &key, Value &value)) { __postOrder(visit); }
 
     template<class K, class V>
-    friend std::ostream &operator<<(std::ostream &os, AVL<K, V> &tree) {
+    friend std::ostream &operator<<(std::ostream &os, const AVL<K, V> &tree) {
         if (tree.empty())
             return os << "NULL" <<std::endl;
         int level, h = tree.height();

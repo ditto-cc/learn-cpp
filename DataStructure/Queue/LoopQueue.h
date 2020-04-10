@@ -2,8 +2,12 @@
 #ifndef _LOOPQUEUE_H
 #define _LOOPQUEUE_H
 
+#include <iostream>
 #include "../Array/Array.h"
 #include "Queue.h"
+
+using std::out_of_range;
+using std::ostream;
 
 template <class T>
 class LoopQueue : Queue<T> {
@@ -49,7 +53,7 @@ public:
 
     T dequeue() {
         if (empty())
-            throw "Empty Queue.";
+            throw out_of_range("Empty Queue.");
         T ret = data[head];
         head = (head + 1) % m_capacity;
         return ret;
@@ -57,7 +61,7 @@ public:
 
     T getFront() const {
         if (empty())
-            throw "Empty Queue.";
+            throw out_of_range("Empty Queue.");
         return data[head];
     }
 

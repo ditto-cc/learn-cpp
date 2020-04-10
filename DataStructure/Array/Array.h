@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using std::out_of_range;
+
 template<class T>
 class Array {
 private:
@@ -36,7 +38,7 @@ private:
     }
 
 public:
-    Array(const int &cap = 10) : m_capacity(cap), m_size(0) { data = new int[cap]; }
+    explicit Array(const int &cap = 10) : m_capacity(cap), m_size(0) { data = new int[cap]; }
 
     Array(const Array &arr) : m_capacity(arr.capacity()), m_size(arr.capacity()) {
         data = new int[m_capacity];
@@ -54,7 +56,7 @@ public:
 
     void add(int i, const T &e) {
         if (i < 0 || i > m_size)
-            throw "Illegal Index.";
+            throw out_of_range("Illegal Index.");
 
         if (m_size == m_capacity + 1)
             __expandCap();
@@ -66,7 +68,7 @@ public:
 
     T remove(int i) {
         if (i < 0 || i >= m_size)
-            throw "Illegal Index.";
+            throw out_of_range("Illegal Index.");
 
         if (m_size <= m_capacity / 4)
             __reduceCap();
@@ -80,13 +82,13 @@ public:
 
     void set(int i, const T &e) {
         if (i < 0 || i >= m_size)
-            throw "Illegal Index.";
+            throw out_of_range("Illegal Index.");
         data[i] = e;
     }
 
     T get(int i) const {
         if (i < 0 || i >= m_size)
-            throw "Illegal Index.";
+            throw out_of_range("Illegal Index.");
         return data[i];
     }
 

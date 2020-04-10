@@ -7,16 +7,15 @@
 
 template <class T>
 class BST {
-public:
+private:
     class Node {
     public:
         T data;
         Node *lChild, *rChild;
 
-        Node(T e, Node *l = nullptr, Node *r = nullptr) : data(e), lChild(l), rChild(r) {}
+        explicit Node(T e, Node *l = nullptr, Node *r = nullptr) : data(e), lChild(l), rChild(r) {}
         ~Node() { delete lChild, rChild; }
     };
-private:
     Node *m_root;
     int m_size;
 
@@ -94,7 +93,7 @@ private:
         return node;
     }
 
-    int __height(Node *node) {
+    int __height(Node *node) const {
         if (!node) return 0;
         return 1 + std::max(__height(node->lChild), __height(node->rChild));
     }
@@ -107,8 +106,8 @@ public:
     BST &operator=(const BST &tree);
 
     int size() { return m_size; }
-    bool empty() { return m_size > 0; }
-    int height() { return __height(m_root); }
+    bool empty() const { return m_size > 0; }
+    int height() const { return __height(m_root); }
     void add(const T &e) { m_root = __add(m_root, e); }
     bool contains(const T &e) { return __getNode(m_root, e) != nullptr; }
     void remove(const T &e);
@@ -118,7 +117,7 @@ public:
     void postOrder(void (*visit)(const T &e)) { __postOrder(visit); }
 
     template<class T1>
-    friend std::ostream &operator<<(std::ostream &os, BST<T1> &tree) {
+    friend std::ostream &operator<<(std::ostream &os, const BST<T1> &tree) {
         if (tree.empty())
             return os << std::endl;
         int level, h = tree.height();
