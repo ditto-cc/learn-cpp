@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <functional>
-#include "../Queue/ListQueue.h"
+#include <queue>
 
 using std::range_error;
 using std::max;
@@ -255,21 +255,22 @@ public:
         if (tree.empty())
             return os << "NULL" << std::endl;
         int level, h = tree.height();
-        ListQueue<Node *> q;
-        q.enqueue(tree.m_root);
+        std::queue<Node *> q;
+        q.push(tree.m_root);
         while (!q.empty() && h > 0) {
             level = q.size();
             h--;
             for (; level > 0; level--) {
-                Node *front = q.dequeue();
+                Node *front = q.front();
+                q.pop();
                 if (front == nullptr) {
                     os << "NULL ";
-                    q.enqueue(nullptr);
-                    q.enqueue(nullptr);
+                    q.push(nullptr);
+                    q.push(nullptr);
                 } else {
                     os << "(" << front->key << ", " << front->value << ") ";
-                    q.enqueue(front->lChild);
-                    q.enqueue(front->rChild);
+                    q.push(front->lChild);
+                    q.push(front->rChild);
                 }
             }
             os << std::endl;

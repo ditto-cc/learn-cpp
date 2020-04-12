@@ -3,7 +3,10 @@
 #define _BST_H
 
 #include <iostream>
-#include "../Queue/ListQueue.h"
+#include <functional>
+#include <queue>
+
+using std::range_error;
 
 template<class K, class V>
 class BST {
@@ -152,7 +155,7 @@ public:
 
     int size() const { return m_size; }
 
-    bool empty() const { return m_size > 0; }
+    bool empty() const { return m_size == 0; }
 
     int height() const { return height(m_root); }
 
@@ -190,21 +193,22 @@ public:
         if (tree.empty())
             return os << std::endl;
         int level, h = tree.height();
-        ListQueue<Node *> q;
-        q.enqueue(tree.m_root);
+        std::queue<Node *> q;
+        q.push(tree.m_root);
         while (!q.empty() && h > 0) {
             level = q.size();
             h--;
             for (; level > 0; level--) {
-                Node *front = q.dequeue();
+                Node *front = q.front();
+                q.pop();
                 if (front == nullptr) {
                     os << "NULL ";
-                    q.enqueue(nullptr);
-                    q.enqueue(nullptr);
+                    q.push(nullptr);
+                    q.push(nullptr);
                 } else {
-                    os << front->key << " ";
-                    q.enqueue(front->lChild);
-                    q.enqueue(front->rChild);
+                    os << "(" << front->key << ", " << front->value << ") ";
+                    q.push(front->lChild);
+                    q.push(front->rChild);
                 }
             }
             os << std::endl;
