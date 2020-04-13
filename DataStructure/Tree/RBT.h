@@ -104,7 +104,7 @@ private:
         return node;
     }
 
-    Node *getNode(Node *node, const K &key) {
+    Node *getNode(Node *node, const K &key) const {
         if (node == nullptr)
             return nullptr;
         if (node->key < key)
@@ -127,7 +127,7 @@ private:
         return 1 + std::max(height(node->lChild), height(node->rChild));
     }
 
-    bool isRed(Node *node) {
+    bool isRed(Node *node) const {
         if (!node) return false;
         return node->color;
     }
