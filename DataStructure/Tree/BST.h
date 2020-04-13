@@ -53,7 +53,7 @@ private:
         postOrder(root->rChild, visit);
     }
 
-    Node *add(Node *node, const K &key, V val) {
+    Node *add(Node *node, const K &key, const V &val) {
         if (node == nullptr) {
             m_size++;
             return new Node(key, val);
@@ -67,7 +67,7 @@ private:
         return node;
     }
 
-    Node *getNode(Node *node, const K &key) {
+    Node *getNode(Node *node, const K &key) const {
         if (node == nullptr)
             return nullptr;
         if (node->key < key)
@@ -159,7 +159,7 @@ public:
 
     int height() const { return height(m_root); }
 
-    void add(const K &key, V val) { m_root = add(m_root, key, val); }
+    void add(const K &key, const V &val) { m_root = add(m_root, key, val); }
 
     bool contains(const K &e) { return getNode(m_root, e) != nullptr; }
 
@@ -175,7 +175,7 @@ public:
         return ret;
     }
 
-    V &get(const K &key) {
+    V &get(const K &key) const {
         auto node = getNode(m_root, key);
         if (node == nullptr)
             throw range_error("Key Error.");
