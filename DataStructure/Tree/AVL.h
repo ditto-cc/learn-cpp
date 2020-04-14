@@ -56,7 +56,7 @@ private:
         visit(root->key, root->value);
     }
 
-    int getBalanceFactor(Node *node) {
+    int getBalanceFactor(Node *node) const {
         if (!node) return 0;
         return height(node->lChild) - height(node->rChild);
     }
@@ -90,7 +90,8 @@ private:
         int balanceFactor = getBalanceFactor(retNode);
         if (balanceFactor > -2 && balanceFactor < 2) return retNode;
 
-        int lb = getBalanceFactor(node->lChild), rb = getBalanceFactor(node->rChild);
+        int lb = getBalanceFactor(node->lChild);
+        int rb = getBalanceFactor(node->rChild);
         if (balanceFactor > 1 && lb >= 0) {
             retNode = rightRotate(retNode);
         } else if (balanceFactor < -1 && rb <= 0) {
@@ -105,7 +106,7 @@ private:
         return retNode;
     }
 
-    Node *add(Node *node, const K &key, V value) {
+    Node *add(Node *node, const K &key, const V &value) {
         if (node == nullptr) {
             m_size++;
             return new Node(key, value, 1);
@@ -119,7 +120,7 @@ private:
         return rotate(node);
     }
 
-    Node *getNode(Node *node, const K &key) {
+    Node *getNode(Node *node, const K &key) const {
         if (node == nullptr)
             return nullptr;
         if (node->key < key)
@@ -224,11 +225,11 @@ public:
 
     int height() const { return height(m_root); }
 
-    void add(const K &key, V value) { m_root = add(m_root, key, value); }
+    void add(const K &key, const V &value) { m_root = add(m_root, key, value); }
 
-    bool contains(const K &key) { return getNode(m_root, key) != nullptr; }
+    bool contains(const K &key) const { return getNode(m_root, key) != nullptr; }
 
-    V &get(const K &key) {
+    V &get(const K &key) const {
         Node *node = getNode(m_root, key);
         if (!node)
             throw range_error("Key Error");
@@ -240,7 +241,7 @@ public:
         m_root = remove(m_root, key, node);
         if (!node)
             throw range_error("Key Error");
-        V ret = node->value;
+        V &ret = node->value;
         delete node;
         return ret;
     }
