@@ -75,6 +75,7 @@
   - 0692-Top-K-Frequent-Words
 
 ### Design
+  - 0071-Simplify-Path
   - 0225-Implement-Stack-using-Queues
 
 ### Stack
