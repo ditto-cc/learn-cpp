@@ -26,6 +26,7 @@
   - 0008-String-to-Integer-(atoi)
   - 0038-Count-and-Say
   - 0409-Longest-Palindrome
+  - 0466-Count-The-Repetitions
   - 0820-Short-Encoding-of-Words
   - 1071-greatest-common-divisor-of-strings
   
