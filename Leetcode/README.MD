@@ -63,6 +63,7 @@
 ### Search
   - 0074-Search-a-2D-Matrix
   - 0079-Word-Search
+  - 0200-Number-of-Islands
   - 0542-01-Matrix
   - 1160-Find-Words-That-Can-Be-Formed-by-Characters
   - 1162-As-Far-from-Land-as-Possible 
