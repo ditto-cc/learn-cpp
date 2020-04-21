@@ -3,6 +3,7 @@
   - 0114-Flatten-Binary-Tree-to-Linked-List
   - 0116-populating-next-right-pointers-in-each-node
   - 0117-populating-next-right-pointers-in-each-node-II
+  - 0199-Binary-Tree-Right-Side-View
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
 ### Array
