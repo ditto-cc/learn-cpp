@@ -15,6 +15,7 @@ private:
 
 public:
     Singleton2(const Singleton2 &) = delete;
+    Singleton2 & operator=(const Singleton2 &) = delete;
 
     ~Singleton2() = default;
 
