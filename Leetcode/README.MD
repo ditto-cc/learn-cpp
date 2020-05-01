@@ -52,6 +52,7 @@
   - 0673-number-of-longest-increasing-subsequence
 
 ### List
+  - 0021-Merge-Two-Sorted-Lists
   - 0023-Merge-k-Sorted-Lists
   - 0025-Reverse-Nodes-in-k-Group
   - 0092-Reverse-Linked-List-II
