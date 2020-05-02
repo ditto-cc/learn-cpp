@@ -24,6 +24,7 @@
   - 1365-how-many-numbers-are-smaller-than-the-current-number
 
 ### String
+  - 0003-Longest-Substring-Without-Repeating-Characters
   - 0006-ZigZag-Conversion
   - 0008-String-to-Integer-(atoi)
   - 0038-Count-and-Say
