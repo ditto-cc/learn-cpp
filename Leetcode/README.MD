@@ -49,6 +49,7 @@
   - 0053-Maximum-Subarray
   - 0198-House-Robber
   - 0213-House-Robber-II
+  - 0221-Maximal-Square
   - 0337-House-Robber-III
   - 0300-longest-increasing-subsequence
   - 0322-Coin-Change
