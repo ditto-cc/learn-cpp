@@ -66,11 +66,12 @@
   
 ### Math
   - 0050-Pow
-  - 0509-Fibonacci-Number
   - 0066-Plus-One
   - 0067-Add-Binary
+  - 0069-Sqrt
   - 0089-Gray-Code
   - 0365-Water-and-Jug-Problem
+  - 0509-Fibonacci-Number
   - 0836-Rectangle-Overlap
 
 ### Search
