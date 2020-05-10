@@ -5,6 +5,8 @@
   - 0116-populating-next-right-pointers-in-each-node
   - 0117-populating-next-right-pointers-in-each-node-II
   - 0199-Binary-Tree-Right-Side-View
+  - 0236-Lowest-Common-Ancestor-of-a-Binary-Tree
+  - 0235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree
   - 0572-Subtree-of-Another-Tree
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
