@@ -15,8 +15,8 @@ private:
     T *data;
     int m_capacity, m_size;
 
-    void __copy(int newCapacity) {
-        T *newData = new T(newCapacity);
+    void _copy(int newCapacity) {
+        T *newData = new T[newCapacity];
         for (int i = 0; i < m_size; i++)
             newData[i] = data[i];
         delete[] data;
@@ -24,17 +24,16 @@ private:
         m_capacity = newCapacity;
     }
 
-    void __reduceCap() {
+    void _reduceCap() {
         int newCapacity = m_capacity / 2;
         if (newCapacity == 0)
             return;
-        __copy(newCapacity);
+        _copy(newCapacity);
     }
 
-    void __expandCap() {
+    void _expandCap() {
         int newCapacity = m_capacity * 2;
-        T *newData = new T(newCapacity);
-        __copy(newCapacity);
+        _copy(newCapacity);
     }
 
 public:
@@ -59,7 +58,7 @@ public:
             throw out_of_range("Illegal Index.");
 
         if (m_size == m_capacity + 1)
-            __expandCap();
+            _expandCap();
         for (int j = m_size; j > i; j--)
             data[j] = data[j - 1];
         data[i] = e;
@@ -71,7 +70,7 @@ public:
             throw out_of_range("Illegal Index.");
 
         if (m_size <= m_capacity / 4)
-            __reduceCap();
+            _reduceCap();
 
         T ret = data[i];
         for (int j = i; j < m_size - 1; j++)
@@ -113,7 +112,6 @@ Array<T> &Array<T>::operator=(const Array &array) {
 
 template<class T>
 inline std::ostream &operator<<(std::ostream &os, const Array<T> &arr) {
-    int capacity = arr.capacity();
     int size = arr.size();
     os << "[";
     for (int i = 0; i < size; i++) {
