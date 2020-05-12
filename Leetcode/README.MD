@@ -100,4 +100,5 @@
   - 0225-Implement-Stack-using-Queues
 
 ### Stack
+  - 0155-Min-Stack
   - 1111-Maximum-Nesting-Depth-of-Two-Valid-Parentheses-Strings
