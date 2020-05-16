@@ -31,7 +31,7 @@ private:
 
     // 减少容量
     void _reduceCap() {
-        int newCapacity = m_cap / 2;
+        size_t newCapacity = m_cap / 2;
         if (newCapacity == 0)
             return;
         _move(newCapacity);
@@ -39,7 +39,7 @@ private:
 
     // 扩展容量
     void _expandCap() {
-        int newCapacity = m_cap * 2;
+        size_t newCapacity = m_cap * 2;
         _move(newCapacity);
     }
 
@@ -49,17 +49,28 @@ public:
 
     // 拷贝构造函数
     Array(const Array &arr) : m_cap(arr.m_cap), m_len(arr.m_len) {
-        m_data = new int[m_cap];
+        m_data = new T[m_cap];
         for (size_t i = 0; i < m_len; i++)
             m_data[i] = arr.m_data[i];
     }
 
+    // 将C数组构造为Array
+    Array(T *arr, const size_t &n) : m_cap(sizeof(arr)), m_len(n) {
+        m_data = arr;
+    }
+
     // 析构函数
-    ~Array() { delete[] m_data; }
+    ~Array() {
+        delete[] m_data;
+    }
 
-    size_t cap() const { return m_cap; }
+    size_t cap() const {
+        return m_cap;
+    }
 
-    size_t len() const { return m_len; }
+    size_t len() const {
+        return m_len;
+    }
 
     // 在指定位置插入元素
     void insert(const size_t &i, const T &e) {
@@ -79,15 +90,16 @@ public:
         insert(m_len, e);
     }
 
-    // 移除元素，返回元素的引用
-    T &remove(const size_t &i) {
+    // 移除指定位置的元素
+    // 返回元素
+    T remove(const size_t &i) {
         if (i >= m_len)
             throw out_of_range("Illegal Index.");
 
         if (m_len <= m_cap / 4)
             _reduceCap();
 
-        T &ret = m_data[i];
+        T ret = m_data[i];
         for (size_t j = i; j < m_len - 1; j++)
             m_data[j] = m_data[j + 1];
         m_len--;
@@ -104,6 +116,11 @@ public:
         if (i >= m_len)
             throw out_of_range("Illegal Index.");
         return m_data[i];
+    }
+
+    // 数组是否为空
+    bool empty() const {
+        return m_len == 0;
     }
 
     Array<T> &operator=(const Array &array) {
