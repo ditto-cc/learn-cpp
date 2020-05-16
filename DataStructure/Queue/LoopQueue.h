@@ -13,70 +13,84 @@ template <class T>
 class LoopQueue : Queue<T> {
 private:
     T *data;
-    int head, tail, m_capacity;
+    int head, tail, m_cap{};
 
-    void __copy(int newCapacity) {
-        int _size = size();
+    void _copy(int newCapacity) {
+        size_t _size = size();
         T *newData = new T[newCapacity];
-        for (int i = 0; i < _size; i++)
-            newData[i] = data[(head + i) % m_capacity];
+        for (size_t i = 0; i < _size; i++)
+            newData[i] = data[(head + i) % m_cap];
 
         delete [] data;
         data = newData;
-        m_capacity = newCapacity;
+        m_cap = newCapacity;
         head = 0; tail = _size;
     }
 
-    void __expandCap() {
-        int newCapacity = m_capacity * 2;
-        __copy(newCapacity);
+    void _expandCap() {
+        int newCapacity = m_cap * 2;
+        _copy(newCapacity);
     }
 
-    void __reduceCap() {
-        int newCapacity = m_capacity / 2;
+    void _reduceCap() {
+        int newCapacity = m_cap / 2;
         if (newCapacity == 0)
             return;
-        __copy(newCapacity);
+        _copy(newCapacity);
     }
 
 public:
-    LoopQueue(int cap = 10) : head(0), tail(0) { data = new T[cap]; }
-    ~LoopQueue() { delete data; }
+    explicit LoopQueue(int cap = 10) : head(0), tail(0) {
+        data = new T[cap];
+    }
+
+    ~LoopQueue() {
+        delete data;
+    }
 
     void enqueue(const T &e) {
-        if ((tail + 1) % m_capacity == head)
-            __expandCap();
+        if ((tail + 1) % m_cap == head)
+            _expandCap();
         data[tail] = e;
 
-        tail = (tail + 1) % m_capacity;
+        tail = (tail + 1) % m_cap;
     }
 
     T dequeue() {
         if (empty())
             throw out_of_range("Empty Queue.");
+
+        if (size() < m_cap / 4)
+            _reduceCap();
+
         T ret = data[head];
-        head = (head + 1) % m_capacity;
+        head = (head + 1) % m_cap;
         return ret;
     }
 
-    T getFront() const {
+    T &getFront() {
         if (empty())
             throw out_of_range("Empty Queue.");
         return data[head];
     }
 
-    bool empty() const { return tail == head; }
-    int size() const { return (tail - head + m_capacity) % m_capacity; }
+    bool empty() const {
+        return tail == head;
+    }
+
+    size_t size() const {
+        return (tail - head + m_cap) % m_cap;
+    }
 
     friend ostream &operator<<(ostream &os, const LoopQueue<T> &q) {
-        os << "head[";
+        os << "HEAD[";
         int _size = q.size();
         for (int i = 0; i < _size; i++) {
-            os << q.data[(q.head + i) % q.m_capacity];
+            os << q.data[(q.head + i) % q.m_cap];
             if (i != _size - 1)
-                os << ", ";
+                os << ',' << ' ';
         }
-        os << "]tail";
+        os << "]TAIL";
     }
 };
 
