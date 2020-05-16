@@ -12,33 +12,39 @@ using std::out_of_range;
 template<class T>
 class ArrayStack : public Stack<T> {
 private:
-    Array<T> *arr;
+    Array<T> arr;
 
 public:
-    ArrayStack() { arr = new Array<T>(); }
+    explicit ArrayStack(int cap = 10) { arr = Array<T>(cap); }
 
-    ~ArrayStack() { delete arr; }
+    ~ArrayStack() = default;
 
-    void push(T e) { arr->add(arr->size(), e); }
+    void push(const T &e) {
+        arr.add(e);
+    }
 
     T pop() {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return arr->remove(arr->size() - 1);
+        return arr.remove(arr.len() - 1);
     }
 
-    T top() const {
+    T &top() {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return arr->get(arr->size() - 1);
+        return arr[arr.len() - 1];
     }
 
-    bool empty() const { return arr->size() == 0; }
+    bool empty() const {
+        return arr.empty();
+    }
 
-    int size() const { return arr->size(); }
+    const size_t &size() const {
+        return arr.len();
+    }
 
     friend ostream &operator<<(ostream &os, const ArrayStack<T> &s) {
-        return os << "bottom" << *(s.arr) << "top";
+        return os << "bottom" << s.arr << "top";
     }
 };
 

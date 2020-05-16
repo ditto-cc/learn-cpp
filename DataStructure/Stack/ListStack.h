@@ -14,9 +14,13 @@ private:
     LinkedList<T> *list;
 
 public:
-    ListStack() { list = new LinkedList<T>(); }
+    ListStack() {
+        list = new LinkedList<T>();
+    }
 
-    ~ListStack() { delete list; }
+    ~ListStack() {
+        delete list;
+    }
 
     T pop() {
         if (empty())
@@ -24,17 +28,23 @@ public:
         return list->remove(0);
     }
 
-    T top() const {
+    T &top() {
         if (empty())
             throw out_of_range("Empty Stack.");
         return list->get(0);
     }
 
-    int size() const { return list->getSize(); }
+    const size_t &size() const {
+        return list->size();
+    }
 
-    bool empty() const { return list->getSize() == 0; }
+    bool empty() const {
+        return list->empty();
+    }
 
-    void push(T e) { list->prepend(e); }
+    void push(const T &e) {
+        list->prepend(e);
+    }
 
     friend ostream &operator<<(ostream &os, const ListStack &s) {
         return os << "top" << *(s.list) << "bottom";
