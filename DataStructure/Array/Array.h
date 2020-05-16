@@ -12,115 +12,140 @@ using std::out_of_range;
 template<class T>
 class Array {
 private:
-    T *data;
-    int m_capacity, m_size;
 
-    void _copy(int newCapacity) {
+    // 数据
+    T *m_data;
+    // 最大容量，当前元素个数
+    size_t m_cap, m_len;
+
+    // 从原数组转移到新数组
+    // 指定新的最大容量
+    void _move(size_t newCapacity) {
         T *newData = new T[newCapacity];
-        for (int i = 0; i < m_size; i++)
-            newData[i] = data[i];
-        delete[] data;
-        data = newData;
-        m_capacity = newCapacity;
+        for (size_t i = 0; i < m_len; i++)
+            newData[i] = m_data[i];
+        delete[] m_data;
+        m_data = newData;
+        m_cap = newCapacity;
     }
 
+    // 减少容量
     void _reduceCap() {
-        int newCapacity = m_capacity / 2;
+        int newCapacity = m_cap / 2;
         if (newCapacity == 0)
             return;
-        _copy(newCapacity);
+        _move(newCapacity);
     }
 
+    // 扩展容量
     void _expandCap() {
-        int newCapacity = m_capacity * 2;
-        _copy(newCapacity);
+        int newCapacity = m_cap * 2;
+        _move(newCapacity);
     }
 
 public:
-    explicit Array(const int &cap = 10) : m_capacity(cap), m_size(0) { data = new int[cap]; }
+    // 构造器，默认初始容量为10
+    explicit Array(const size_t &cap = 10) : m_cap(cap), m_len(0) { m_data = new T[cap]; }
 
-    Array(const Array &arr) : m_capacity(arr.capacity()), m_size(arr.capacity()) {
-        data = new int[m_capacity];
-        for (int i = 0; i < m_size; i++)
-            data[i] = arr.data[i];
+    // 拷贝构造函数
+    Array(const Array &arr) : m_cap(arr.m_cap), m_len(arr.m_len) {
+        m_data = new int[m_cap];
+        for (size_t i = 0; i < m_len; i++)
+            m_data[i] = arr.m_data[i];
     }
 
-    Array<T> &operator=(const Array &array);
+    // 析构函数
+    ~Array() { delete[] m_data; }
 
-    ~Array() { delete[] data; }
+    size_t cap() const { return m_cap; }
 
-    int capacity() const { return m_capacity; }
+    size_t len() const { return m_len; }
 
-    int size() const { return m_size; }
-
-    void add(int i, const T &e) {
-        if (i < 0 || i > m_size)
+    // 在指定位置插入元素
+    void insert(const size_t &i, const T &e) {
+        if (i > m_len)
             throw out_of_range("Illegal Index.");
 
-        if (m_size == m_capacity + 1)
+        if (m_len == m_cap + 1)
             _expandCap();
-        for (int j = m_size; j > i; j--)
-            data[j] = data[j - 1];
-        data[i] = e;
-        m_size++;
+        for (size_t j = m_len; j > i; j--)
+            m_data[j] = m_data[j - 1];
+        m_data[i] = e;
+        m_len++;
     }
 
-    T remove(int i) {
-        if (i < 0 || i >= m_size)
+    // 在数组结尾添加元素
+    void add(const T &e) {
+        insert(m_len, e);
+    }
+
+    // 移除元素，返回元素的引用
+    T &remove(const size_t &i) {
+        if (i >= m_len)
             throw out_of_range("Illegal Index.");
 
-        if (m_size <= m_capacity / 4)
+        if (m_len <= m_cap / 4)
             _reduceCap();
 
-        T ret = data[i];
-        for (int j = i; j < m_size - 1; j++)
-            data[j] = data[j + 1];
-        m_size--;
+        T &ret = m_data[i];
+        for (size_t j = i; j < m_len - 1; j++)
+            m_data[j] = m_data[j + 1];
+        m_len--;
         return ret;
     }
 
-    void set(int i, const T &e) {
-        if (i < 0 || i >= m_size)
+    void set(const size_t &i, const T &e) {
+        if (i >= m_len)
             throw out_of_range("Illegal Index.");
-        data[i] = e;
+        m_data[i] = e;
     }
 
-    T get(int i) const {
-        if (i < 0 || i >= m_size)
+    T &get(const size_t &i) {
+        if (i >= m_len)
             throw out_of_range("Illegal Index.");
-        return data[i];
+        return m_data[i];
     }
 
+    Array<T> &operator=(const Array &array) {
+        if (this == &array)
+            return *this;
 
+        delete[] m_data;
+
+        m_cap = array.cap();
+        m_len = array.len();
+
+        m_data = new int[m_cap];
+        for (int i = 0; i < m_len; i++)
+            m_data[i] = array.m_data[i];
+        return *this;
+    }
+
+    // 数组下标重载
+    T &operator[](const size_t &index) {
+        return get(index);
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Array<T> &arr) {
+        int size = arr.len();
+        os << "[";
+        for (int i = 0; i < size; i++) {
+            os << arr.m_data[i];
+            if (i != size - 1)
+                os << ", ";
+        }
+        return os << "]";
+    }
 };
 
 template<class T>
-Array<T> &Array<T>::operator=(const Array &array) {
-    if (this == &array)
-        return *this;
-
-    delete[] data;
-
-    m_capacity = array.capacity();
-    m_size = array.size();
-
-    data = new int[m_capacity];
-    for (int i = 0; i < m_size; i++)
-        data[i] = array.data[i];
-    return *this;
+size_t len(const Array<T> &arr) {
+    return arr.len();
 }
 
 template<class T>
-inline std::ostream &operator<<(std::ostream &os, const Array<T> &arr) {
-    int size = arr.size();
-    os << "[";
-    for (int i = 0; i < size; i++) {
-        os << arr.get(i);
-        if (i != size - 1)
-            os << ", ";
-    }
-    return os << "]";
+size_t cap(const Array<T> &arr) {
+    return arr.cap();
 }
-
 
 #endif
