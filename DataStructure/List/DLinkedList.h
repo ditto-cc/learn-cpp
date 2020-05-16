@@ -10,7 +10,7 @@ using std::out_of_range;
 
 template<class T>
 class DLinkedList {
-public:
+private:
     class DListNode {
     public:
         T data;
@@ -24,170 +24,155 @@ public:
     };
 
 private:
-    DListNode *head;
-    int m_size;
+    // 虚拟头节点
+    DListNode *pHead;
+    // 元素个数
+    size_t m_size;
 
-    void __add(DListNode *p, T e);
-
-    T __remove(DListNode *p);
-
-public:
-    DLinkedList() : m_size(0) {
-        head = new DListNode();
-        head->prior = head->next = head;
+    // 在p节点后添加元素
+    void _add(DListNode *p, const T &e) {
+        auto *node = new DListNode(e, p, p->next);
+        p->next->prior = node;
+        p->next = node;
+        m_size++;
     }
 
+    // 删除p节点后继
+    // 返回元素的引用
+    T &_remove(DListNode *p) {
+        T ret = p->data;
+        p->prior->next = p->next;
+        p->next->prior = p->prior;
+        p->next = p->prior = nullptr;
+        delete p;
+        m_size--;
+        return ret;
+    }
+
+    // 将传入链表节点所有元素复制
+    void _copy(const DLinkedList<T> &list) {
+        pHead = new DListNode();
+        pHead->next = pHead->prior = pHead;
+        DListNode *p = list.pHead->next;
+        while (p != list.pHead) {
+            append(p->data);
+            p = p->next;
+        }
+    }
+
+    // 获取指定位置节点前驱
+    DListNode *_getPrior(const size_t &i) {
+        DListNode *p = pHead;
+        for (size_t j = 0; j < i; j++, p = p->next);
+        return p;
+    }
+
+public:
+    // 默认构造器
+    DLinkedList() : m_size(0) {
+        pHead = new DListNode();
+        pHead->prior = pHead->next = pHead;
+    }
+
+    // 析构函数
     ~DLinkedList() {
-        head->prior->next = nullptr;
-        head->prior = nullptr;
-        delete head;
-}
+        pHead->prior->next = nullptr;
+        delete pHead;
+    }
 
-    DLinkedList(T *arr, int n);
+    // 将C数组构造为双链表
+    DLinkedList(T *arr, const size_t &n) : m_size(n), pHead(new DListNode()) {
+        pHead->next = pHead->prior = pHead;
+        for (int i = 0; i < n; i++)
+            append(arr[i]);
+    }
 
-    DLinkedList(const DLinkedList<T> &list);
+    // 拷贝构造
+    DLinkedList(const DLinkedList<T> &list) : m_size(list.m_size) {
+        _copy(list);
+    }
 
-    DLinkedList<T> &operator=(const DLinkedList<T> &list);
+    // 拷贝赋值
+    DLinkedList<T> &operator=(const DLinkedList<T> &list) {
+        if (&list == this)
+            return *this;
 
-    void add(int i, T e);
+        // 将之前申请的内存空间释放
+        pHead->prior->next = nullptr;
+        delete pHead;
 
-    void append(T e);
+        m_size = list.m_size;
+        _copy(list);
+    }
 
-    void prepend(T e);
+    // 指定位置添加元素
+    void add(const size_t &i, const T &e) {
+        if (i > m_size)
+            throw out_of_range("Illegal Index");
 
-    T remove(int i);
+        DListNode *p = _getPrior(i);
+        _add(p, e);
+    }
 
-    T popleft();
+    // 在链表末尾添加元素
+    void append(const T &e) {
+        _add(pHead->prior, e);
+    }
 
-    T popright();
+    // 在链表头部添加元素
+    void prepend(const T &e) {
+        _add(pHead, e);
+    }
 
-    T get(int i);
+    // 删除指定位置的节点
+    // 返回元素的引用
+    T &remove(const size_t &i) {
+        if (i >= m_size)
+            throw out_of_range("Illegal Index");
+        DListNode *p = _getPrior(i);
+        return _remove(p->next);
+    }
 
-    int size() { return m_size; }
+    // 弹出链表首部的节点
+    // 返回元素的引用
+    T &popLeft() {
+        if (m_size == 0)
+            throw out_of_range("Empty List.");
+        return _remove(pHead->next);
+    }
 
+    // 弹出链表尾部的节点
+    // 返回元素的引用
+    T &popRight() {
+        if (m_size == 0)
+            throw out_of_range("Empty List.");
+        return _remove(pHead->prior);
+    }
+
+    // 获取指定位置的元素引用
+    T &get(const size_t &i) {
+        if (i >= m_size)
+            throw out_of_range("Illegal Index");
+        DListNode *p = _getPrior(i);
+        return p->next->data;
+    }
+
+    // 获取链表元素个数
+    const size_t &size() const { return m_size; }
+
+    // 流的插入
     friend ostream &operator<<(ostream &os, const DLinkedList &list) {
-        os << "[";
+        os << "[HEAD<->";
         int i = 0;
-        DListNode *p = list.head->next;
-        for (; p != list.head; i++, p = p->next) {
+        DListNode *p = list.pHead->next;
+        for (; p != list.pHead; i++, p = p->next) {
             os << p->data;
             if (list.m_size - 1 != i)
                 os << "<->";
         }
-
-        return os << "]";
+        return os << "HEAD]";
     }
 
 };
-
-template<class T>
-DLinkedList<T>::DLinkedList(T *arr, int n) {
-    head = new DListNode();
-    m_size = n;
-    head->next = head;
-    head->prior = head;
-    for (int i = 0; i < n; i++)
-        append(arr[i]);
-}
-
-template<class T>
-DLinkedList<T>::DLinkedList(const DLinkedList<T> &list) {
-    m_size = list.m_size;
-    head = new DListNode();
-    head->next = head->prior = head;
-    DListNode *p = list.head->next;
-    while (p != list.head) {
-        append(p->data);
-        p = p->next;
-    }
-}
-
-template<class T>
-DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &list) {
-    if (&list == this)
-        return *this;
-    head->prior->next = nullptr;
-    head->prior = nullptr;
-    delete head;
-    m_size = list.m_size;
-    head = new DListNode();
-    head->next = head->prior = head;
-    DListNode *p = list.head->next;
-    while (p != list.head) {
-        append(p->data);
-        p = p->next;
-    }
-}
-
-template<class T>
-inline void DLinkedList<T>::__add(DLinkedList::DListNode *p, T e) {
-    auto *node = new DListNode(e, p, p->next);
-    p->next->prior = node;
-    p->next = node;
-    m_size++;
-}
-
-template<class T>
-inline T DLinkedList<T>::__remove(DLinkedList::DListNode *p) {
-    T ret = p->data;
-    p->prior->next = p->next;
-    p->next->prior = p->prior;
-    p->next = p->prior = nullptr;
-    delete p;
-    m_size--;
-    return ret;
-}
-
-template<class T>
-inline void DLinkedList<T>::add(int i, T e) {
-    if (i < 0 || i > m_size)
-        throw out_of_range("Illegal Index");
-
-    DListNode *p = head;
-    for (int j = 0; j < i; j++, p = p->next);
-    __add(p, e);
-}
-
-template<class T>
-inline void DLinkedList<T>::append(T e) {
-    __add(head->prior, e);
-}
-
-template<class T>
-inline void DLinkedList<T>::prepend(T e) {
-    __add(head, e);
-}
-
-template<class T>
-inline T DLinkedList<T>::remove(int i) {
-    if (i < 0 || i >= m_size)
-        throw out_of_range("Illegal Index");
-    DListNode *p = head->next;
-    for (int j = 0; j < i; j++, p = p->next);
-    return __remove(p);
-}
-
-template<class T>
-inline T DLinkedList<T>::popleft() {
-    if (m_size == 0)
-        throw out_of_range("Empty List.");
-    return __remove(head->next);
-}
-
-template<class T>
-inline T DLinkedList<T>::popright() {
-    if (m_size == 0)
-        throw out_of_range("Empty List.");
-    return __remove(head->prior);
-}
-
-template<class T>
-T DLinkedList<T>::get(int i) {
-    if (i < 0 || i >= m_size)
-        throw out_of_range("Illegal Index");
-    DListNode *p = head;
-    for (int j = 0; j < i; j++, p = p->next);
-    return p->next->data;
-}
 
 #endif

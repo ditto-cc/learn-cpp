@@ -8,7 +8,7 @@ using std::out_of_range;
 
 template<class T>
 class LinkedList {
-public:
+private:
     class ListNode {
     public:
         T data;
@@ -22,139 +22,125 @@ public:
     };
 
 private:
-    ListNode *head;
-    int size;
+    // 虚拟头节点
+    ListNode *pHead;
+    // 元素个数
+    size_t m_size;
 
-    void __copy(const LinkedList<T> &list);
+    // 将传入链表所有节点元素复制
+    void _copy(const LinkedList<T> &list) {
+        ListNode *p = pHead;
+        ListNode *q = list.pHead->next;
+        while (q) {
+            p->next = new ListNode(q->data);
+            p = p->next;
+            q = q->next;
+        }
+    }
 
-    ListNode *__getPrior(int i) const {
-        ListNode *p = head;
-        for (int j = 0; j < i; j++)
+    // 获取指定位置前驱节点
+    ListNode *_getPrior(const size_t &i) const {
+        ListNode *p = pHead;
+        for (size_t j = 0; j < i; j++)
             p = p->next;
         return p;
     }
 
 public:
 
-    LinkedList() : head(new ListNode()), size(0) {}
+    // 默认构造器
+    LinkedList() : pHead(new ListNode()), m_size(0) {}
 
-    LinkedList(const LinkedList<T> &list);
+    // 拷贝构造
+    LinkedList(const LinkedList<T> &list) : m_size(list.m_size), pHead(new ListNode()){
+        _copy(list);
+    }
 
-    LinkedList(int arr[], int n);
+    // 将C数组转化为单链表
+    LinkedList(T *arr, const size_t &n) : m_size(n), pHead(new ListNode()) {
+        for (size_t i = n - 1; i >= 0; i--)
+            prepend(arr[i]);
+    }
 
-    LinkedList<T> &operator=(const LinkedList<T> &list);
+    // 拷贝赋值
+    LinkedList<T> &operator=(const LinkedList<T> &list) {
+        if (&list == this)
+            return *this;
+        delete pHead;
+        pHead = new ListNode();
+        m_size = list.m_size;
+        _copy(list);
+        return *this;
+    }
 
-    ~LinkedList() { delete head; }
+    // 析构函数
+    ~LinkedList() { delete pHead; }
 
-    void add(int i, T e);
+    // 在指定位置插入元素e
+    void insert(const size_t &i, const T &e) {
+        if (i > m_size)
+            throw out_of_range("Add Failed. Illegal Index.");
 
-    void append(T e) { add(size, e); }
+        ListNode *p = _getPrior(i);
+        p->next = new ListNode(e, p->next);
+        m_size++;
+    }
 
-    void prepend(T e) { add(0, e); }
+    // 在链表结尾添加元素
+    void append(const T &e) { insert(m_size, e); }
 
-    int getSize() { return size; }
+    // 在链表头添加节点
+    void prepend(const T &e) { insert(0, e); }
 
-    T remove(int i);
+    // 获取元素个数
+    size_t size() const { return m_size; }
 
-    void set(int i, T e);
+    // 删除制定位置元素
+    // 返回元素引用
+    T &remove(const size_t &i) {
+        if (i >= m_size)
+            throw out_of_range("Remove Failed. Illegal Index.");
 
-    T get(int i) const;
+        ListNode *p = _getPrior(i);
 
-    template<class T1>
-    friend std::ostream &operator<<(std::ostream &os, const LinkedList<T1> &list) {
-        os << "[";
+        ListNode *delNode = p->next;
+        T ret = delNode->data;
+
+        p->next = delNode->next;
+        delNode->next = nullptr;
+        delete delNode;
+        m_size--;
+        return ret;
+    }
+
+    // 更新制定位置的元素
+    void set(const size_t &i, const T &e) {
+        if (i >= m_size)
+            throw out_of_range("Set Failed. Illegal Index.");
+
+        ListNode *p = _getPrior(i);
+        p->next->data = e;
+    }
+
+    // 获取制定位置元素引用
+    T &get(int i) {
+        if (i < 0 || i >= m_size)
+            throw out_of_range("Get Failed. Illegal Index.");
+
+        ListNode *p = _getPrior(i);
+        return p->next->data;
+    }
+
+    // 重载流插入
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list) {
+        os << '[';
         int i = 0;
-        ListNode *p = list.head->next;
-        while (p) {
+        for (auto p = list.pHead->next; p; p = p->next) {
             os << p->data;
-            p = p->next;
-            if ((i++) != list.size - 1)
-                os << "->";
+            if ((i++) != list.m_size - 1)
+                os << '-' << '>';
         }
-        return os << "]";
+        return os << "NULL]";
     }
 };
-
-template<class T>
-inline void LinkedList<T>::__copy(const LinkedList<T> &list) {
-    ListNode *p = head;
-    ListNode *q = list.head->next;
-    while (q) {
-        p->next = new ListNode(q->data, nullptr);
-        p = p->next;
-        q = q->next;
-    }
-}
-
-template<class T>
-inline LinkedList<T>::LinkedList(const LinkedList<T> &list) {
-    head = new ListNode();
-    size = list.size;
-    __copy(list);
-}
-
-template<class T>
-inline LinkedList<T>::LinkedList(int arr[], int n) : size(0) {
-    head = new ListNode();
-    for (int i = n - 1; i >= 0; i--)
-        prepend(arr[i]);
-}
-
-template<class T>
-inline LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &list) {
-    if (&list == this)
-        return *this;
-    delete head;
-    head = new ListNode();
-    size = list.size;
-    __copy(list);
-    return *this;
-}
-
-template<class T>
-inline void LinkedList<T>::add(int i, T e) {
-    if (i < 0 || i > size)
-        throw out_of_range("Add Failed. Illegal Index.");
-
-    ListNode *p = __getPrior(i);
-    p->next = new ListNode(e, p->next);
-    size++;
-}
-
-template<class T>
-T LinkedList<T>::remove(int i) {
-    if (i < 0 || i >= size)
-        throw out_of_range("Remove Failed. Illegal Index.");
-
-    ListNode *p = __getPrior(i);
-
-    ListNode *delNode = p->next;
-    T ret = delNode->data;
-
-    p->next = delNode->next;
-    delNode->next = nullptr;
-    delete delNode;
-    size--;
-    return ret;
-}
-
-template<class T>
-void LinkedList<T>::set(int i, T e) {
-    if (i < 0 || i >= size)
-        throw out_of_range("Set Failed. Illegal Index.");
-
-    ListNode *p = __getPrior(i);
-    p->next->data = e;
-}
-
-template<class T>
-T LinkedList<T>::get(int i) const {
-    if (i < 0 || i >= size)
-        throw out_of_range("Get Failed. Illegal Index.");
-
-    ListNode *p = __getPrior(i);
-    return p->next->data;
-}
-
-
 #endif
