@@ -93,7 +93,12 @@ public:
     void prepend(const T &e) { insert(0, e); }
 
     // 获取元素个数
-    size_t size() const { return m_size; }
+    const size_t &size() const { return m_size; }
+
+    // 链表是否为空
+    bool empty() const {
+        return m_size == 0;
+    }
 
     // 删除制定位置元素
     // 返回元素引用

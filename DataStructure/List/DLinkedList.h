@@ -160,6 +160,11 @@ public:
     // 获取链表元素个数
     const size_t &size() const { return m_size; }
 
+    // 链表是否为空
+    bool empty() {
+        return m_size == 0;
+    }
+
     // 流的插入
     friend ostream &operator<<(ostream &os, const DLinkedList &list) {
         os << "[HEAD<->";
