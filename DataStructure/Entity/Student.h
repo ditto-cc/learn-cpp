@@ -13,6 +13,7 @@ private:
     double m_score;
 
 public:
+    Student() : m_score(0.0) {}
     Student(string name, const double &score): m_name(std::move(name)), m_score(score) {}
     Student(const char *name, const double &score): m_score(score) {
         m_name = string(name);
