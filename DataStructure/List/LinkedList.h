@@ -101,8 +101,8 @@ public:
     }
 
     // 删除制定位置元素
-    // 返回元素引用
-    T &remove(const size_t &i) {
+    // 返回元素
+    T remove(const size_t &i) {
         if (i >= m_size)
             throw out_of_range("Remove Failed. Illegal Index.");
 

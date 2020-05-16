@@ -38,8 +38,8 @@ private:
     }
 
     // 删除p节点后继
-    // 返回元素的引用
-    T &_remove(DListNode *p) {
+    // 返回元素
+    T _remove(DListNode *p) {
         T ret = p->data;
         p->prior->next = p->next;
         p->next->prior = p->prior;
@@ -125,8 +125,8 @@ public:
     }
 
     // 删除指定位置的节点
-    // 返回元素的引用
-    T &remove(const size_t &i) {
+    // 返回元素
+    T remove(const size_t &i) {
         if (i >= m_size)
             throw out_of_range("Illegal Index");
         DListNode *p = _getPrior(i);
@@ -134,16 +134,16 @@ public:
     }
 
     // 弹出链表首部的节点
-    // 返回元素的引用
-    T &popLeft() {
+    // 返回元素
+    T popLeft() {
         if (m_size == 0)
             throw out_of_range("Empty List.");
         return _remove(pHead->next);
     }
 
     // 弹出链表尾部的节点
-    // 返回元素的引用
-    T &popRight() {
+    // 返回元素
+    T popRight() {
         if (m_size == 0)
             throw out_of_range("Empty List.");
         return _remove(pHead->prior);
