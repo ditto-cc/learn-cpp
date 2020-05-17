@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(
         Leetcode main.cpp
 
-        Array String Tree Backtracking List DP Math Search Sort Heap Design Stack Greedy
+        Array String Tree Backtracking List DP Math Search Sort Heap Design Stack Greedy Graph
 )
