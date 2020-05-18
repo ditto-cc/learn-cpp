@@ -91,6 +91,7 @@ public:
                 os << ',' << ' ';
         }
         os << "]TAIL";
+        return os;
     }
 };
 
