@@ -26,13 +26,13 @@ public:
     T pop() {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return arr.remove(arr.len() - 1);
+        return arr.remove(arr.size() - 1);
     }
 
     T &top() {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return arr[arr.len() - 1];
+        return arr[arr.size() - 1];
     }
 
     bool empty() const {
@@ -40,7 +40,7 @@ public:
     }
 
     const size_t &size() const {
-        return arr.len();
+        return arr.size();
     }
 
     friend ostream &operator<<(ostream &os, const ArrayStack<T> &s) {
