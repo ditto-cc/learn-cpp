@@ -11,16 +11,9 @@ using std::out_of_range;
 template<class T>
 class DLinkedList {
 private:
-    class DListNode {
-    public:
+    struct DListNode {
         T data;
         DListNode *next, *prior;
-
-        DListNode() : prior(nullptr), next(nullptr) {}
-
-        explicit DListNode(T e, DListNode *p = nullptr, DListNode *n = nullptr) : data(e), prior(p), next(n) {}
-
-        ~DListNode() { delete next; }
     };
 
 private:
@@ -31,9 +24,13 @@ private:
 
     // 在p节点后添加元素
     void _add(DListNode *p, const T &e) {
-        auto *node = new DListNode(e, p, p->next);
-        p->next->prior = node;
-        p->next = node;
+        auto *node = new DListNode();
+        node->data = e;
+
+        node->prior = p;
+        node->next = p->next;
+
+        p->next = p->next->prior = node;
         m_size++;
     }
 
@@ -61,10 +58,27 @@ private:
     }
 
     // 获取指定位置节点前驱
-    DListNode *_getPrior(const size_t &i) {
+    DListNode *_getPrior(const size_t &i) const {
         DListNode *p = pHead;
         for (size_t j = 0; j < i; j++, p = p->next);
         return p;
+    }
+
+    // 销毁p节点为首的链表
+    void _destroy(DListNode *p) {
+        if (!p)
+            return;
+
+        p->prior->next = nullptr;
+        p->prior = nullptr;
+        while (p) {
+            DListNode *q = p->next;
+            if (q)
+                q->prior = p->next = nullptr;
+
+            delete p;
+            p = q;
+        }
     }
 
 public:
@@ -76,8 +90,7 @@ public:
 
     // 析构函数
     ~DLinkedList() {
-        pHead->prior->next = nullptr;
-        delete pHead;
+        _destroy(pHead);
     }
 
     // 将C数组构造为双链表
@@ -98,8 +111,7 @@ public:
             return *this;
 
         // 将之前申请的内存空间释放
-        pHead->prior->next = nullptr;
-        delete pHead;
+        _destroy(pHead);
 
         m_size = list.m_size;
         _copy(list);
@@ -150,7 +162,7 @@ public:
     }
 
     // 获取指定位置的元素引用
-    T &get(const size_t &i) {
+    T &get(const size_t &i) const {
         if (i >= m_size)
             throw out_of_range("Illegal Index");
         DListNode *p = _getPrior(i);
@@ -158,23 +170,24 @@ public:
     }
 
     // 获取链表元素个数
-    const size_t &size() const { return m_size; }
+    const size_t &size() const {
+        return m_size;
+    }
 
     // 链表是否为空
-    bool empty() {
+    bool empty() const {
         return m_size == 0;
     }
 
     // 流的插入
     friend ostream &operator<<(ostream &os, const DLinkedList &list) {
+        if (list.empty())
+            return os << "[]";
+
         os << "[HEAD<->";
-        int i = 0;
-        DListNode *p = list.pHead->next;
-        for (; p != list.pHead; i++, p = p->next) {
-            os << p->data;
-            if (list.m_size - 1 != i)
-                os << "<->";
-        }
+        for (DListNode *p = list.pHead->next ; p != list.pHead; p = p->next)
+            os << p->data << "<->";
+
         return os << "HEAD]";
     }
 

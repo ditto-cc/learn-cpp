@@ -9,16 +9,9 @@ using std::out_of_range;
 template<class T>
 class LinkedList {
 private:
-    class ListNode {
-    public:
+    struct ListNode {
         T data;
         ListNode *next;
-
-        ListNode() : next(nullptr) {}
-
-        explicit ListNode(const T &e, ListNode *next = nullptr) : data(e), next(next) {}
-
-        ~ListNode() { delete next; }
     };
 
 private:
@@ -32,7 +25,8 @@ private:
         ListNode *p = pHead;
         ListNode *q = list.pHead->next;
         while (q) {
-            p->next = new ListNode(q->data);
+            p->next = new ListNode();
+            p->next->data = q->data;
             p = p->next;
             q = q->next;
         }
@@ -44,6 +38,16 @@ private:
         for (size_t j = 0; j < i; j++)
             p = p->next;
         return p;
+    }
+
+    // 销毁p节点为首的链表
+    void _destroy(ListNode *p) {
+        while (p) {
+            ListNode *q = p->next;
+            p->next = nullptr;
+            delete p;
+            p = q;
+        }
     }
 
 public:
@@ -62,19 +66,23 @@ public:
             prepend(arr[i]);
     }
 
-    // 拷贝赋值
+    // 拷贝复制
     LinkedList<T> &operator=(const LinkedList<T> &list) {
         if (&list == this)
             return *this;
-        delete pHead;
+        _destroy(pHead);
+
         pHead = new ListNode();
+        pHead->next = nullptr;
         m_size = list.m_size;
         _copy(list);
         return *this;
     }
 
     // 析构函数
-    ~LinkedList() { delete pHead; }
+    ~LinkedList() {
+        _destroy(pHead);
+    }
 
     // 在指定位置插入元素e
     void insert(const size_t &i, const T &e) {
@@ -82,18 +90,27 @@ public:
             throw out_of_range("Add Failed. Illegal Index.");
 
         ListNode *p = _getPrior(i);
-        p->next = new ListNode(e, p->next);
+        auto *node = new ListNode();
+        node->next = p->next;
+        node->data = e;
+        p->next = node;
         m_size++;
     }
 
     // 在链表结尾添加元素
-    void append(const T &e) { insert(m_size, e); }
+    void append(const T &e) {
+        insert(m_size, e);
+    }
 
     // 在链表头添加节点
-    void prepend(const T &e) { insert(0, e); }
+    void prepend(const T &e) {
+        insert(0, e);
+    }
 
     // 获取元素个数
-    const size_t &size() const { return m_size; }
+    const size_t &size() const {
+        return m_size;
+    }
 
     // 链表是否为空
     bool empty() const {
@@ -113,7 +130,7 @@ public:
 
         p->next = delNode->next;
         delNode->next = nullptr;
-        delete delNode;
+        _destroy(delNode);
         m_size--;
         return ret;
     }
@@ -128,7 +145,7 @@ public:
     }
 
     // 获取制定位置元素引用
-    T &get(int i) {
+    T &get(int i) const {
         if (i < 0 || i >= m_size)
             throw out_of_range("Get Failed. Illegal Index.");
 
@@ -138,13 +155,12 @@ public:
 
     // 重载流插入
     friend std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list) {
-        os << '[';
-        int i = 0;
-        for (auto p = list.pHead->next; p; p = p->next) {
-            os << p->data;
-            if ((i++) != list.m_size - 1)
-                os << '-' << '>';
-        }
+        if (list.empty())
+            return os << "[]";
+
+        os << "[HEAD->";
+        for (auto p = list.pHead->next; p; p = p->next)
+            os << p->data << "->";
         return os << "NULL]";
     }
 };
