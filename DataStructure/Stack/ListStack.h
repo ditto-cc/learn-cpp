@@ -11,43 +11,41 @@ using std::out_of_range;
 template<class T>
 class ListStack : public Stack<T> {
 private:
-    LinkedList<T> *list;
+    LinkedList<T> list;
 
 public:
     ListStack() {
-        list = new LinkedList<T>();
+        list = LinkedList<T>();
     }
 
-    ~ListStack() {
-        delete list;
-    }
+    ~ListStack() = default;
 
     T pop() {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return list->remove(0);
+        return list.remove(0);
     }
 
-    T &top() {
+    T &top() const {
         if (empty())
             throw out_of_range("Empty Stack.");
-        return list->get(0);
+        return list.get(0);
     }
 
-    const size_t &size() const {
-        return list->size();
+    size_t size() const {
+        return list.size();
     }
 
     bool empty() const {
-        return list->empty();
+        return list.empty();
     }
 
     void push(const T &e) {
-        list->prepend(e);
+        list.prepend(e);
     }
 
     friend ostream &operator<<(ostream &os, const ListStack &s) {
-        return os << "top" << *(s.list) << "bottom";
+        return os << "TOP " << s.list << " BOTTOM";
     }
 };
 

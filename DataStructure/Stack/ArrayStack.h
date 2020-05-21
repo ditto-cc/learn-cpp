@@ -15,7 +15,9 @@ private:
     Array<T> arr;
 
 public:
-    explicit ArrayStack(int cap = 10) { arr = Array<T>(cap); }
+    explicit ArrayStack(const size_t &cap = 10) {
+        arr = Array<T>(cap);
+    }
 
     ~ArrayStack() = default;
 
@@ -29,7 +31,7 @@ public:
         return arr.remove(arr.size() - 1);
     }
 
-    T &top() {
+    T &top() const {
         if (empty())
             throw out_of_range("Empty Stack.");
         return arr[arr.size() - 1];
@@ -39,12 +41,12 @@ public:
         return arr.empty();
     }
 
-    const size_t &size() const {
+    size_t size() const {
         return arr.size();
     }
 
     friend ostream &operator<<(ostream &os, const ArrayStack<T> &s) {
-        return os << "bottom" << s.arr << "top";
+        return os << "BOTTOM " << s.arr << " TOP";
     }
 };
 
