@@ -54,9 +54,8 @@ public:
     Array() : m_cap(0), m_size(0), m_data(nullptr) {}
 
     // 构造器，默认初始容量为10
-    explicit Array(const size_t &cap) : m_cap(cap), m_size(cap) {
+    explicit Array(const size_t &cap) : m_cap(cap), m_size(0) {
         m_data = new T[cap];
-        memset(m_data, 0, cap * sizeof(T));
     }
 
     // 拷贝构造函数
