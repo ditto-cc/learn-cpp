@@ -31,7 +31,7 @@ public:
         return list.popLeft();
     }
 
-    T &getFront() {
+    T &front() const {
         if (empty())
             throw out_of_range("Empty Queue.");
         return list.get(0);
@@ -41,12 +41,12 @@ public:
         return list.empty();
     }
 
-    const size_t &size() const {
+    size_t size() const {
         return list.size();
     }
 
     friend ostream &operator<<(ostream &os, const ListQueue<T> &q) {
-        return os << "head" << q.list << "tail";
+        return os << "HEAD " << q.list << " TAIL";
     }
 
 };
