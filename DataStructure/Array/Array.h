@@ -1,9 +1,9 @@
 //
-// Created by cheng on 2019/12/24.
+// Created by cc on 2019/12/24.
 //
 
-#ifndef _ARRAY_
-#define _ARRAY_
+#ifndef _ARRAY_H_
+#define _ARRAY_H_
 
 #include <iostream>
 #include <cstring>
@@ -51,10 +51,12 @@ private:
     }
 
 public:
-    Array() : m_cap(0), m_size(0), m_data(nullptr) {}
+    Array() : m_cap(1), m_size(0) {
+        m_data = new T[1];
+    }
 
     // 构造器，默认初始容量为10
-    explicit Array(const size_t &cap) : m_cap(cap), m_size(0) {
+    explicit Array(const size_t &cap = 10) : m_cap(cap), m_size(0) {
         m_data = new T[cap];
     }
 
@@ -113,12 +115,14 @@ public:
         return ret;
     }
 
+    // 将指定位置元素设置为e
     void set(const size_t &i, const T &e) {
         if (i >= m_size)
             throw out_of_range("Illegal Index.");
         m_data[i] = e;
     }
 
+    // 获取指定位置元素引用
     T &get(const size_t &i) const {
         if (i >= m_size)
             throw out_of_range("Illegal Index.");
