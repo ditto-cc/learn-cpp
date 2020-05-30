@@ -1,6 +1,7 @@
 
 ### Tree
   - 0098-Validate-Binary-Search-Tree
+  - 0101-Symmetric-Tree
   - 0114-Flatten-Binary-Tree-to-Linked-List
   - 0116-populating-next-right-pointers-in-each-node
   - 0117-populating-next-right-pointers-in-each-node-II
