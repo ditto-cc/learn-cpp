@@ -12,6 +12,7 @@
 
 ### Array
   - 0011-Container-With-Most-Water
+  - 0084-Largest-Rectangle-in-Histogram
   - 0152-Maximum-Product-Subarray
   - 0169-majority-element
   - 0287-Find-the-Duplicate-Number
