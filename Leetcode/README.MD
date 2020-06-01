@@ -32,6 +32,7 @@
   - 1266-minimum-time-visiting-all-points
   - 1313-Decompress-Run-Length-Encoded-List
   - 1365-how-many-numbers-are-smaller-than-the-current-number
+  - 1431-Kids-With-the-Greatest-Number-of-Candies
 
 ### String
   - 0003-Longest-Substring-Without-Repeating-Characters
