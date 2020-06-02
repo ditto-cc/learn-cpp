@@ -35,5 +35,3 @@ cmake-build-debug
 .idea
 .vscode
 build
-main.cpp
-main
