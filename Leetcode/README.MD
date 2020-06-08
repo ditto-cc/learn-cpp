@@ -17,6 +17,7 @@
   - 0084-Largest-Rectangle-in-Histogram
   - 0152-Maximum-Product-Subarray
   - 0169-majority-element
+  - 0238-Product-of-Array-Except-Self
   - 0287-Find-the-Duplicate-Number
   - 0289-Game-of-Life
   - 0394-Decode-String
