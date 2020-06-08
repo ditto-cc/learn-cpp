@@ -114,3 +114,6 @@
 
 ### Graph
   - 0210-Course-Schedule-II
+
+### UnionFind
+  - 0990-Satisfiability-of-Equality-Equations
