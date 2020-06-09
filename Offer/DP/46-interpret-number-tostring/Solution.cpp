@@ -23,6 +23,7 @@
 链接：https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+#include <cmath>
 
 class Solution {
 public:
@@ -30,8 +31,7 @@ public:
         if (num < 10)
             return 1;
 
-        int digits_num = 0;
-        for (int temp = num; temp > 0; temp /= 10, digits_num++);
+        int digits_num = (int) floor(log10(num)) + 1;
 
         int *digits = new int[digits_num];
         for (int i = digits_num - 1; i >= 0; num /= 10, i--)
