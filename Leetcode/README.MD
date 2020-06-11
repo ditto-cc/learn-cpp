@@ -112,6 +112,7 @@
 ### Stack
   - 0071-Simplify-Path
   - 0155-Min-Stack
+  - 0496-Next-Greater-Element-I
   - 0739-Daily-Temperatures
   - 1111-Maximum-Nesting-Depth-of-Two-Valid-Parentheses-Strings
 
