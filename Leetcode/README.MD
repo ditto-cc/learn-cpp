@@ -111,6 +111,7 @@
 
 ### Stack
   - 0155-Min-Stack
+  - 0739-Daily-Temperatures
   - 1111-Maximum-Nesting-Depth-of-Two-Valid-Parentheses-Strings
 
 ### Graph
