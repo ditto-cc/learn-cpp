@@ -58,6 +58,7 @@
 
 ### DP
   - 0053-Maximum-Subarray
+  - 0070-Climbing-Stairs
   - 0198-House-Robber
   - 0213-House-Robber-II
   - 0221-Maximal-Square

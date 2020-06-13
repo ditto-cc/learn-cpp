@@ -5,15 +5,14 @@
 #ifndef _ARRAY_H_
 #define _ARRAY_H_
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 using std::out_of_range;
 
 template<class T>
 class Array {
 private:
-
     // 数据
     T *m_data;
     // 最大容量，当前元素个数
@@ -21,26 +20,13 @@ private:
 
     // 从原数组转移到新数组
     // 指定新的最大容量
-    void _move(size_t newCapacity) {
+    void _resize(size_t newCapacity) {
         T *newData = new T[newCapacity];
         for (size_t i = 0; i < m_size; i++)
             newData[i] = m_data[i];
         delete[] m_data;
         m_data = newData;
         m_cap = newCapacity;
-    }
-
-    // 减少容量
-    void _reduceCap() {
-        size_t newCapacity = m_cap / 2;
-        if (newCapacity == 0)
-            return;
-        _move(newCapacity);
-    }
-
-    // 扩展容量
-    void _expandCap() {
-        _move(m_cap * 2);
     }
 
     // 根据给定数组数据拷贝到当前实例
@@ -56,7 +42,7 @@ public:
     }
 
     // 构造器，默认初始容量为10
-    explicit Array(const size_t &cap = 10) : m_cap(cap), m_size(0) {
+    explicit Array(const size_t &cap) : m_cap(cap), m_size(0) {
         m_data = new T[cap];
     }
 
@@ -86,8 +72,9 @@ public:
         if (i > m_size)
             throw out_of_range("Illegal Index.");
 
-        if (m_size == m_cap + 1)
-            _expandCap();
+        if (m_size == m_cap)
+            _resize(m_cap * 2);
+
         for (size_t j = m_size; j > i; j--)
             m_data[j] = m_data[j - 1];
         m_data[i] = e;
@@ -105,8 +92,11 @@ public:
         if (i >= m_size)
             throw out_of_range("Illegal Index.");
 
-        if (m_size <= m_cap / 4)
-            _reduceCap();
+        if (m_size <= m_cap / 4) {
+            size_t newCapacity = m_cap / 2;
+            if (newCapacity != 0)
+                _resize(newCapacity);
+        }
 
         T ret = m_data[i];
         for (size_t j = i; j < m_size - 1; j++)
@@ -156,7 +146,7 @@ public:
     // 流插入重载
     friend std::ostream &operator<<(std::ostream &os, const Array<T> &arr) {
         int size = arr.size();
-        os << "[";
+        os << "(size = " << size << ", cap = " << arr.cap() << ")[";
         for (int i = 0; i < size; i++) {
             os << arr.m_data[i];
             if (i != size - 1)
