@@ -32,6 +32,7 @@
   - 1010-Pairs-of-songs-with-total-durations-divisible-by-60
   - 1248-Count-Number-of-Nice-Subarrays
   - 1266-minimum-time-visiting-all-points
+  - 1300-Sum-of-Mutated-Array-Closest-to-Target
   - 1313-Decompress-Run-Length-Encoded-List
   - 1365-how-many-numbers-are-smaller-than-the-current-number
   - 1431-Kids-With-the-Greatest-Number-of-Candies
