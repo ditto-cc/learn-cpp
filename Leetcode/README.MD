@@ -70,6 +70,7 @@
   - 0518-Coin-Change-2
   - 0673-number-of-longest-increasing-subsequence
   - 0837-New-21-Game
+  - 1014-Best-Sightseeing-Pair
 
 ### List
   - 0021-Merge-Two-Sorted-Lists
