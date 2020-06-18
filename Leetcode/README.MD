@@ -10,6 +10,7 @@
   - 0235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree
   - 0297-Serialize-and-Deserialize-Binary-Tree
   - 0572-Subtree-of-Another-Tree
+  - 1028-Recover-a-Tree-From-Preorder-Traversal
   - 1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree
 
 ### Array
