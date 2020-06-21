@@ -80,6 +80,7 @@
 
 | ID   | Problem                                  | Solution                                                                  |
 | ---- | ---------------------------------------- | ------------------------------------------------------------------------- |
+| 0010 | Regular-Expression-Matching              | [solution](DP/0010-Regular-Expression-Matching/Solution.cpp)              |
 | 0053 | Maximum-Subarray                         | [solution](DP/0053-Maximum-Subarray/Solution.cpp)                         |
 | 0070 | Climbing-Stairs                          | [solution](DP/0070-Climbing-Stairs/Solution.cpp)                          |
 | 0198 | House-Robber                             | [solution](DP/0198-House-Robber/Solution.cpp)                             |
