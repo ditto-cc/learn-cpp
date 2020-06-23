@@ -25,37 +25,32 @@ class Solution {
 private:
     const char temp[2] = {'0', '1'};
 
-    string solution(string s, string l, int sl, int ll) {
+public:
+    string addBinary(string a, string b) {
+        int sl = a.size(), ll = b.size();
+        if (sl > ll) {
+            a.swap(b);
+            swap(sl, ll);
+        }
         int carry = 0;
-        for (int i = sl-1, j = ll-1; i >= 0 && j >= 0; i--, j--) {
-            if (s[i] == l[j]) {
-                l[j] = temp[carry];
-                carry = s[i] == '1' ? 1 : 0;
+        for (int i = sl - 1, j = ll - 1; i >= 0 && j >= 0; i--, j--) {
+            if (a[i] == b[j]) {
+                b[j] = temp[carry];
+                carry = a[i] == '1';
             } else {
-                l[j] = temp[1-carry];
+                b[j] = temp[1 - carry];
             }
         }
 
         for (int i = ll - sl - 1; i >= 0 && carry; i--) {
-            if (l[i] == '1') {
-                l[i] = '0';
+            if (b[i] == '1') {
+                b[i] = '0';
             } else {
-                l[i] = '1';
+                b[i] = '1';
                 carry = 0;
-                break;
             }
         }
 
-        if (carry) {
-            return "1"+l;
-        }
-        return l;
-    }
-
-public:
-    string addBinary(string a, string b) {
-        int m = a.size(), n = b.size();
-
-        return m < n ? solution(a, b, m, n) : solution(b, a, n, m);
+        return carry ? '1' + b : b;
     }
 };
