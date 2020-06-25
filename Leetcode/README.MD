@@ -84,6 +84,7 @@
 | 0010 | Regular-Expression-Matching              | [solution](DP/0010-Regular-Expression-Matching/Solution.cpp)              |
 | 0053 | Maximum-Subarray                         | [solution](DP/0053-Maximum-Subarray/Solution.cpp)                         |
 | 0070 | Climbing-Stairs                          | [solution](DP/0070-Climbing-Stairs/Solution.cpp)                          |
+| 0139 | Word-Break                          | [solution](DP/0139-Word-Break/Solution.cpp)                               |
 | 0198 | House-Robber                             | [solution](DP/0198-House-Robber/Solution.cpp)                             |
 | 0213 | House-Robber-II                          | [solution](DP/0213-House-Robber-II/Solution.cpp)                          |
 | 0221 | Maximal-Square                           | [solution](DP/0221-Maximal-Square/Solution.cpp)                           |
