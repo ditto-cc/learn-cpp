@@ -27,6 +27,7 @@
 | 0084 | Largest-Rectangle-in-Histogram                       | [solution](Array/0084-Largest-Rectangle-in-Histogram/Solution.cpp)                       |
 | 0152 | Maximum-Product-Subarray                             | [solution](Array/0152-Maximum-Product-Subarray/Solution.cpp)                             |
 | 0169 | majority-element                                     | [solution](Array/0169-majority-element/Solution.cpp)                                     |
+| 0209 | Minimum-Size-Subarray-Sum                            | [solution](Array/0209-Minimum-Size-Subarray-Sum/Solution.cpp)                            |
 | 0238 | Product-of-Array-Except-Self                         | [solution](Array/0238-Product-of-Array-Except-Self/Solution.cpp)                         |
 | 0287 | Find-the-Duplicate-Number                            | [solution](Array/0287-Find-the-Duplicate-Number/Solution.cpp)                            |
 | 0289 | Game-of-Life                                         | [solution](Array/0289-Game-of-Life/Solution.cpp)                                         |
