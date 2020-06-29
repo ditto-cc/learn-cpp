@@ -15,31 +15,35 @@
  */
 
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 
-class Solution {
-private:
-    void down(vector<int> &h, int i, int end) {
-        while (2 * i + 1 < end) {
-            int c = 2 * i + 1;
-            if (c + 1 < end && h[c + 1] < h[c]) c++;
-            if (h[i] <= h[c]) break;
-            swap(h[i], h[c]);
-            i = c;
-        }
-    }
+void down(vector<int> &h, int i, int end) {
+    while (i * 2 + 1 < end) {
+        int l = i * 2 + 1;
+        if (l + 1 < end && h[l] > h[l + 1])
+            l++;
 
+        if (h[i] < h[l])
+            break;
+
+        swap(h[i], h[l]);
+        i = l;
+    }
+}
+
+class Solution {
 public:
-    int findKthLargest(vector<int> &nums, int k) {
-        for (int i = (k - 1) / 2; i >= 0; i--) down(nums, i, k);
-        for (int i = k; i < nums.size(); i++) {
-            if (nums[i] > nums[0]) {
-                nums[0] = nums[i];
+    int findKthLargest(vector<int>& nums, int k) {
+        make_heap(nums.begin(), nums.begin() + k, greater<>());
+        for (auto itr = nums.begin() + k; itr != nums.end(); itr++) {
+            if (*itr > nums.front()) {
+                nums.front() = *itr;
                 down(nums, 0, k);
             }
         }
-        return nums[0];
+        return nums.front();
     }
 };
