@@ -131,6 +131,7 @@
 | 0074 | Search-a-2D-Matrix                          | [solution](Search/0074-Search-a-2D-Matrix/Solution.cpp)                          |
 | 0079 | Word-Search                                 | [solution](Search/0079-Word-Search/Solution.cpp)                                 |
 | 0200 | Number-of-Islands                           | [solution](Search/0200-Number-of-Islands/Solution.cpp)                           |
+| 0378 | Kth-Smallest-Element-in-a-Sorted-Matrix     | [solution](Search/0378-Kth-Smallest-Element-in-a-Sorted-Matrix/Solution.cpp)     |
 | 0542 | 01-Matrix                                   | [solution](Search/0542-01-Matrix/Solution.cpp)                                   |
 | 1095 | Find-in-Mountain-Array                      | [solution](Search/1095-Find-in-Mountain-Array/Solution.cpp)                      |
 | 1160 | Find-Words-That-Can-Be-Formed-by-Characters | [solution](Search/1160-Find-Words-That-Can-Be-Formed-by-Characters/Solution.cpp) |
