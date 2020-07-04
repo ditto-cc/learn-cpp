@@ -159,16 +159,16 @@
 
 ### Design
 
-| ID   | Problem         | Solution                                           |
-| ---- | --------------- | -------------------------------------------------- |
-  - 0071-Simplify-Path
-  - 0225-Implement-Stack-using-Queues
+| ID   | Problem                      | Solution                                                          |
+| ---- | ---------------------------- | ----------------------------------------------------------------- |
+| 0225 | Implement-Stack-using-Queues | [solution](Design/0225-Implement-Stack-using-Queues/Solution.cpp) |
 
 
 ### Stack
 
 | ID   | Problem                                                | Solution                                                                                   |
 | ---- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| 0032 | Longest-Valid-Parentheses                              | [solution](Stack/0032-Longest-Valid-Parentheses/Solution.cpp)                              |
 | 0071 | Simplify-Path                                          | [solution](Stack/0071-Simplify-Path/Solution.cpp)                                          |
 | 0155 | Min-Stack                                              | [solution](Stack/0155-Min-Stack/Solution.cpp)                                              |
 | 0496 | Next-Greater-Element-I                                 | [solution](Stack/0496-Next-Greater-Element-I/Solution.cpp)                                 |
