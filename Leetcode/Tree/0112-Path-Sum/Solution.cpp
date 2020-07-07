@@ -35,20 +35,15 @@
 
 
 class Solution {
-private:
-    bool hasPath(TreeNode* root, int sum) {
+
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
         if (!root)
             return false;
         if (sum == root->val && !root->left && !root->right)
             return true;
 
         sum -= root->val;
-        return hasPath(root->left, sum) || hasPath(root->right, sum);
-    }
-public:
-    bool hasPathSum(TreeNode* root, int sum) {
-        if (!root)
-            return false;
-        return hasPath(root, sum);
+        return hasPathSum(root->left, sum) || hasPathSum(root->right, sum);
     }
 };
