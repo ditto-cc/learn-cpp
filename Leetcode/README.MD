@@ -6,6 +6,7 @@
 | 0098 | Validate-Binary-Search-Tree                                        | [solution](Tree/0098-Validate-Binary-Search-Tree/Solution.cpp)                                        |
 | 0101 | Symmetric-Tree                                                     | [solution](Tree/0101-Symmetric-Tree/Solution.cpp)                                                     |
 | 0108 | Convert-Sorted-Array-to-Binary-Search-Tree                         | [solution](Tree/0108-Convert-Sorted-Array-to-Binary-Search-Tree/Solution.cpp)                         |
+| 0112 | Path-Sum                                                           | [solution](Tree/0112-Path-Sum/Solution.cpp)                                                           |
 | 0114 | Flatten-Binary-Tree-to-Linked-List                                 | [solution](Tree/0114-Flatten-Binary-Tree-to-Linked-List/Solution.cpp)                                 |
 | 0124 | Binary-Tree-Maximum-Path-Sum                                       | [solution](Tree/0124-Binary-Tree-Maximum-Path-Sum/Solution.cpp)                                       |
 | 0116 | populating-next-right-pointers-in-each-node                        | [solution](Tree/0116-populating-next-right-pointers-in-each-node/Solution.cpp)                        |
