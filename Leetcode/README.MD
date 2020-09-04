@@ -14,6 +14,7 @@
 | 0199 | Binary-Tree-Right-Side-View                                        | [solution](Tree/0199-Binary-Tree-Right-Side-View/Solution.cpp)                                        |
 | 0236 | Lowest-Common-Ancestor-of-a-Binary-Tree                            | [solution](Tree/0235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/Solution.cpp)                     |
 | 0235 | Lowest-Common-Ancestor-of-a-Binary-Search-Tree                     | [solution](Tree/0236-Lowest-Common-Ancestor-of-a-Binary-Tree/Solution.cpp)                            |
+| 0257 | Binary-Tree-Paths                                                  | [solution](Tree/0257-Binary-Tree-Paths/Solution.cpp)                                                  |
 | 0297 | Serialize-and-Deserialize-Binary-Tree                              | [solution](Tree/0297-Serialize-and-Deserialize-Binary-Tree/Solution.cpp)                              |
 | 0572 | Subtree-of-Another-Tree                                            | [solution](Tree/0572-Subtree-of-Another-Tree/Solution.cpp)                                            |
 | 1028 | Recover-a-Tree-From-Preorder-Traversal                             | [solution](Tree/1028-Recover-a-Tree-From-Preorder-Traversal/Solution.cpp)                             |
