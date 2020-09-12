@@ -17,6 +17,7 @@
 | 0257 | Binary-Tree-Paths                                                  | [solution](Tree/0257-Binary-Tree-Paths/Solution.cpp)                                                  |
 | 0297 | Serialize-and-Deserialize-Binary-Tree                              | [solution](Tree/0297-Serialize-and-Deserialize-Binary-Tree/Solution.cpp)                              |
 | 0572 | Subtree-of-Another-Tree                                            | [solution](Tree/0572-Subtree-of-Another-Tree/Solution.cpp)                                            |
+| 0637 | Average-of-Levels-in-Binary-Tree                                   | [solution](Tree/0637-Average-of-Levels-in-Binary-Tree/Solution.cpp)                                   |
 | 1028 | Recover-a-Tree-From-Preorder-Traversal                             | [solution](Tree/1028-Recover-a-Tree-From-Preorder-Traversal/Solution.cpp)                             |
 | 1379 | find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree | [solution](Tree/1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/Solution.cpp) |
 
