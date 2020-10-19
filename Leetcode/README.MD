@@ -67,6 +67,7 @@
 | 0466 | Count-The-Repetitions                          | [solution](String/0466-Count-The-Repetitions/Solution.cpp)                          |
 | 0771 | Jewels-and-Stones                              | [solution](String/0771-Jewels-and-Stones/Solution.cpp)                              |
 | 0820 | Short-Encoding-of-Words                        | [solution](String/0820-Short-Encoding-of-Words/Solution.cpp)                        |
+| 0820 | Backspace-String-Compare                       | [solution](String/0844-Backspace-String-Compare/Solution.cpp)                       |
 | 1071 | greatest-common-divisor-of-strings             | [solution](String/1071-greatest-common-divisor-of-strings/Solution.cpp)             |
   
   
