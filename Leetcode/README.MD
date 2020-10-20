@@ -115,6 +115,7 @@
 | 0025 | Reverse-Nodes-in-k-Group  | [solution](List/0025-Reverse-Nodes-in-k-Group/Solution.cpp)  |
 | 0092 | Reverse-Linked-List-II    | [solution](List/0092-Reverse-Linked-List-II/Solution.cpp)    |
 | 0142 | Linked-List-Cycle-II      | [solution](List/0142-Linked-List-Cycle-II/Solution.cpp)      |
+| 0142 | Reorder-List              | [solution](List/0143-Reorder-List/Solution.cpp)              |
 | 0445 | Add-Two-Numbers-II        | [solution](List/0445-Add-Two-Numbers-II/Solution.cpp)        |
 | 0876 | Middle-of-the-Linked-List | [solution](List/0876-Middle-of-the-Linked-List/Solution.cpp) |
  
